@@ -9,8 +9,8 @@
         <module name="telegram" />
         <module name="front-service" />
         <module name="auth-service" />
-        <module name="core-service" />
         <module name="gateway-service" />
+        <module name="core-service" />
         <module name="moderate-service" />
       </profile>
     </annotationProcessing>
