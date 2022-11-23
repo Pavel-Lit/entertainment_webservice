@@ -22,4 +22,9 @@ public class ContentController {
         return contentService.getAllModerateContent()
                 .map(contentConverter::entityToDto);
     }
+
+    @GetMapping("/unmoderate")
+    public Flux<ContentDto> get(){
+        return contentService.getAllUnModerateContent().map(contentConverter::entityToDto);
+    }
 }
