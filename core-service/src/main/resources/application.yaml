@@ -1,0 +1,17 @@
+
+spring:
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5445/postgres?currentSchema=public
+    username: postgres
+    password: postgres
+
+  jpa:
+    show-sql: true
+  webflux:
+    base-path: /core-service
+server:
+  port: 8080
+
+
+upload:
+  path: /dem
