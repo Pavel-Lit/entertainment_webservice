@@ -11,6 +11,7 @@
         <module name="auth-service" />
         <module name="front-service" />
         <module name="gateway-service" />
+        <module name="core-service" />
         <module name="moderate-service" />
         <module name="core-service" />
       </profile>

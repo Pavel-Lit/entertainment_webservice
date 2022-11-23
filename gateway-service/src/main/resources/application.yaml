@@ -1,0 +1,49 @@
+server:
+  port: 5555
+
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:3000"
+            allowedMethods:
+              - GET
+              - POST
+              - DELETE
+              - PUT
+            allowedHeaders: "*"
+      routes:
+        - id: core-service
+          uri: http://localhost:8080
+          predicates:
+            - Path=/core/**
+          filters:
+            - StripPrefix=1
+            - PrefixPath=/core
+            - JwtAuthFilter
+            - name: RequestSize
+              args:
+                  maxSize: 1000000
+        - id: moderate-service
+          uri: http://localhost:8081
+          predicates:
+            - Path=/moderate/**
+          filters:
+            - StripPrefix=1
+            - PrefixPath=/moderate
+            - JwtAuthFilter
+        - id: auth-service
+          uri: http://localhost:8082
+          predicates:
+            - Path=/auth/**
+          filters:
+            - StripPrefix=1
+            - PrefixPath=/auth
+            - JwtAuthFilter
+
+jwt:
+  secret: h4f8093h4f983yhrt9834hr0934hf0hf493g493gf438rh438th34g34g
