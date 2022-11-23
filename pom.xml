@@ -8,10 +8,11 @@
         <module>auth-service</module>
         <module>gateway-service</module>
         <module>telegram</module>
+        <module>api</module>
     </modules>
     <groupId>ru.geekbrains</groupId>
     <artifactId>parent-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>march-market</name>
+    <name>webservice</name>
     <description>entertainment_webservice</description>
 </project>
