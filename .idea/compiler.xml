@@ -2,13 +2,14 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="telegram" />
-        <module name="front-service" />
         <module name="auth-service" />
+        <module name="front-service" />
         <module name="gateway-service" />
         <module name="core-service" />
         <module name="moderate-service" />
@@ -17,6 +18,7 @@
     <bytecodeTargetLevel>
       <module name="auth-service" target="11" />
       <module name="core-service" target="11" />
+      <module name="entertainment_webservice" target="1.5" />
       <module name="front-service" target="11" />
       <module name="gateway-service" target="11" />
       <module name="moderate-service" target="11" />
