@@ -12,7 +12,7 @@ public class ContentConverter {
         ContentDto contentDto = new ContentDto();
         contentDto.setId(contents.getId());
         contentDto.setContent(contents.getContent());
-        contentDto.setTitle(contents.getContent());
+        contentDto.setTitle(contents.getTitle());
         return contentDto;
     }
 }
