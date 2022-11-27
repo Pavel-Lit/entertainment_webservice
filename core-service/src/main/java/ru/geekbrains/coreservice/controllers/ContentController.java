@@ -20,6 +20,7 @@ public class ContentController {
     public Flux<ContentDto> getAllModerateContent(){
         return contentService.getAllModerateContent()
                 .map(contentConverter::entityToDto);
+
     }
 
     @GetMapping("/unmoderate")

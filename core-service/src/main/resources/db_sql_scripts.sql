@@ -1,3 +1,6 @@
+
+SET search_path TO myschema, public;
+
 create table categories
 (
     id    bigserial
@@ -5,11 +8,10 @@ create table categories
             primary key,
     title varchar(255)
 );
+
 create table contents
 (
-    id          bigserial
-        constraint contents_pk
-            primary key,
+    id          bigserial constraint contents_pk  primary key,
     content     varchar(4096),
     moderate    boolean,
     category_id bigserial
@@ -29,12 +31,9 @@ create table likes
         constraint likes_contents_id_fk
             references contents
 );
-create table demotivators
-(
-    id   bigserial not null
-        constraint demotivators_pk
-            primary key,
-    path varchar(255),
-    created_at  timestamp default current_timestamp,
-    updated_at  timestamp default current_timestamp
-);
+
+insert into categories (title) values ('mem');
+insert into categories (title) values ('vovochka');
+insert into contents (category_id, content, moderate) values (1, 'Лето это 3 зарплаты', true);
+insert into contents (category_id, content, moderate) values (2, 'Шутка про Вовочку', true);
+

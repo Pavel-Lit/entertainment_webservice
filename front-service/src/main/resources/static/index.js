@@ -1,6 +1,6 @@
 angular.module('portal', []).controller('contentController', function ($scope, $http) {
     $scope.fillTable = function () {
-        $http.get('http://localhost:8080/core-service/api/v1/mem/')
+        $http.get('http://localhost:5555/core/api/v1/mem/')
             .then(function (response) {
                 $scope.mems = response.data;
                 console.log($scope.mems);

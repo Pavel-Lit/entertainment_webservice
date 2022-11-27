@@ -1,0 +1,11 @@
+
+
+
+
+http://localhost:3000/front/
+http://localhost:5555/core/**
+http://localhost:5555/auth/**
+http://localhost:5555/moderate/**
+
+
+Пример http://localhost:5555/core/api/v1/mem/
