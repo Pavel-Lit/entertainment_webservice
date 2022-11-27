@@ -14,7 +14,7 @@
 
 <body>
 
-<div class="container" ng-controller="contentController">
+<div class="container" ng-controller="moderController">
     <p></p>
     <h1>Развлекательный портал на SpringBoot</h1>
     <p></p>
@@ -35,41 +35,14 @@
             <td>{{m.content}}</td>
             <td>{{m.title}}</td>
             <td>
-                <button type="button" class="btn btn-primary btn-sm" ng-click="incrementLike(m.id)">+</button>
-
-
+                <button type="button" class="btn btn-primary btn-sm" ng-click="moder(m.id)">+</button>
             </td>
 
         </tr>
         </tbody>
     </table>
     <p></p>
-    <h3>На модерацию</h3>
-    <p></p>
-    <table class="table table-hover">
-        <thead>
-        <tr>
-            <td>ID</td>
-            <td>Mems</td>
-            <td>Category</td>
-            <td>moderate</td>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="c in cont">
-            <td>{{c.id}}</td>
-            <td>{{c.content}}</td>
-            <td>{{c.title}}</td>
-            <td>
-                <button type="button" class="btn btn-primary btn-sm" ng-click="moderate(c.id)">+</button>
 
-
-            </td>
-
-        </tr>
-        </tbody>
-    </table>
-    <p></p>
 </div>
 </body>
 </html>

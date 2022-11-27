@@ -1,18 +1,12 @@
-angular.module('portal', []).controller('contentController', function ($scope, $http) {
+angular.module('portal', []).controller('moderController', function ($scope, $http) {
     $scope.fillTable = function () {
-        $http.get('http://localhost:5555/core/api/v1/mem/')
+        $http.get('http://localhost:8081/moder-service/api/v1/moder/')
             .then(function (response) {
                 $scope.mems = response.data;
                 console.log($scope.mems);
             });
     };
-    $scope.fillTableUnmoder = function () {
-        $http.get('http://localhost:8080/core-service/api/v1/mem/unmoderate')
-            .then(function (response) {
-                $scope.cont = response.data;
-                console.log($scope.mems);
-            });
-    };
+
     // $scope.fillTableM = function () {
     //     $http.get('http://localhost:8080/moder')
     //         .then(function (response) {
@@ -21,20 +15,19 @@ angular.module('portal', []).controller('contentController', function ($scope, $
     //         });
     // };
 
-    // $scope.moder = function (id){
-    //     $http.put('http://localhost:8080/moder/' +id)
+    $scope.moder = function (id){
+        $http.get('http://localhost:8081/moder-service/api/v1/moder/m/' +id)
+            .then(function (response){
+                $scope.fillTable();
+            });
+    }
+
+    // $scope.incrementLike = function (id){
+    //     $http.get('http://localhost:8081/demo/api/v1/mem/inc/' +id)
     //         .then(function (response){
     //             $scope.fillTable();
     //         });
     // }
-
-    $scope.moderate = function (id){
-        $http.get('http://localhost:8080/core-service/api/v1/mem/' +id)
-            .then(function (response){
-                $scope.fillTableUnmoder();
-
-            });
-    }
     // $scope.decrementLike = function (id){
     //     $http.get('http://localhost:8081/demo/api/v1/mem/dec/' +id)
     //         .then(function (response){
@@ -67,5 +60,4 @@ angular.module('portal', []).controller('contentController', function ($scope, $
     // }
 
     $scope.fillTable();
-    $scope.fillTableUnmoder();
 });

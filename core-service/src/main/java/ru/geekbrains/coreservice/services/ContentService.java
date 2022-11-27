@@ -3,6 +3,7 @@ package ru.geekbrains.coreservice.services;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 import ru.geekbrains.coreservice.entities.Contents;
 import ru.geekbrains.coreservice.repositories.ContentRepository;
 
@@ -18,5 +19,9 @@ public class ContentService {
 
     public Flux<Contents> getAllUnModerateContent(){
         return contentRepository.findAllUnmoderateContent();
+    }
+
+    public Mono<Void> moderate(Long id){
+       return contentRepository.update(id);
     }
 }
