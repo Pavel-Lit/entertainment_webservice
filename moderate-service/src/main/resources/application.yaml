@@ -2,7 +2,7 @@ server:
   port: 8081
 spring:
   webflux:
-    base-path: /moder-service
+    base-path: /moderate-service
 integrations:
   core-service:
     url: http://localhost:8080/core-service

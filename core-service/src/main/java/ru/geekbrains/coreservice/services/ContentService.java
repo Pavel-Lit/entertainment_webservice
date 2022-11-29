@@ -4,7 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import ru.geekbrains.coreservice.entities.Contents;
+import ru.geekbrains.api.Dto.ContentDto;
+import ru.geekbrains.coreservice.converters.ContentConverter;
 import ru.geekbrains.coreservice.repositories.ContentRepository;
 
 @Repository
@@ -13,15 +14,17 @@ public class ContentService {
 
     private final ContentRepository contentRepository;
 
-    public Flux<Contents> getAllModerateContent(){
-        return contentRepository.findAllModerateContent();
+    private final ContentConverter contentConverter;
+
+    public Flux<ContentDto> getAllModerateContent() {
+        return contentRepository.findAllModerateContent().map(contentConverter::entityToDto);
     }
 
-    public Flux<Contents> getAllUnModerateContent(){
-        return contentRepository.findAllUnmoderateContent();
+    public Flux<ContentDto> getAllUnModerateContent() {
+        return contentRepository.findAllUnmoderateContent().map(contentConverter::entityToDto);
     }
 
-    public Mono<Void> moderate(Long id){
-       return contentRepository.update(id);
+    public Mono<Void> moderate(Long id) {
+        return contentRepository.update(id);
     }
 }

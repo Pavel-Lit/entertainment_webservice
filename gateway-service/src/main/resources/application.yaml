@@ -34,7 +34,7 @@ spring:
             - Path=/moderate/**
           filters:
             - StripPrefix=1
-            - PrefixPath=/moderate
+            - PrefixPath=/moderate-service
 #            - JwtAuthFilter
         - id: auth-service
           uri: http://localhost:8082

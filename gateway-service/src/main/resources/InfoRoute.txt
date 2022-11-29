@@ -8,4 +8,7 @@ http://localhost:5555/auth/**
 http://localhost:5555/moderate/**
 
 
-Пример http://localhost:5555/core/api/v1/mem/
+
+Пример:
+http://localhost:5555/core/api/v1/mem/
+http://localhost:5555/moderate/api/v1/moderate/

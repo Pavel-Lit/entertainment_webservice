@@ -6,25 +6,24 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
-import ru.geekbrains.moderateservice.dto.ContentDto;
-import ru.geekbrains.moderateservice.integration.CoreServiceIntegration;
+import ru.geekbrains.api.Dto.ContentDto;
+import ru.geekbrains.moderateservice.service.ModerateService;
 
 
 @RestController
-@RequestMapping("/api/v1/moder")
+@RequestMapping("/api/v1/moderate/")
 @RequiredArgsConstructor
 public class ModerateController {
-    private final CoreServiceIntegration coreServiceIntegration;
+    private final ModerateService moderateService;
 
 
     @GetMapping("/")
-    public Flux<ContentDto> get(){
-        return coreServiceIntegration.getAllUnmoderateContent();
+    public Flux<ContentDto> getContent(){
+        return moderateService.AllUnModerateContent();
     }
 
     @GetMapping("/m/{id}")
     public void moderateContent(@PathVariable("id") Long id){
-         coreServiceIntegration.moderateContent(id);
+         moderateService.fromModerateContent(id);
     }
 }
