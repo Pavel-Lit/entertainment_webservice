@@ -7,15 +7,17 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="telegram" />
         <module name="auth-service" />
         <module name="front-service" />
         <module name="gateway-service" />
+        <module name="telegram" />
+        <module name="api" />
         <module name="core-service" />
         <module name="moderate-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="api" target="11" />
       <module name="auth-service" target="11" />
       <module name="core-service" target="11" />
       <module name="entertainment_webservice" target="1.5" />
