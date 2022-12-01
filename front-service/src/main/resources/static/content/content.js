@@ -1,11 +1,34 @@
-angular.module('portal', []).controller('moderController', function ($scope, $http) {
+angular.module('portal').controller('contentController', function ($scope, $http) {
+
+ const contextPath = 'http://localhost:5555/core/api/v1/mem/';
+
+
     $scope.fillTable = function () {
-        $http.get('http://localhost:8081/moder-service/api/v1/moder/')
+        $http.get(contextPath)
             .then(function (response) {
                 $scope.mems = response.data;
                 console.log($scope.mems);
             });
     };
+    $scope.fillTableUnmoder = function () {
+        $http.get(contextPath + 'unmoderate/')
+            .then(function (response) {
+                $scope.cont = response.data;
+                console.log($scope.mems);
+            });
+    };
+
+        $scope.moderate = function (id){
+            $http.get(contextPath + id)
+                .then(function (response){
+                    $scope.fillTableUnmoder();
+
+                });
+        }
+
+        $scope.fillTable();
+        $scope.fillTableUnmoder();
+
 
     // $scope.fillTableM = function () {
     //     $http.get('http://localhost:8080/moder')
@@ -15,19 +38,14 @@ angular.module('portal', []).controller('moderController', function ($scope, $ht
     //         });
     // };
 
-    $scope.moder = function (id){
-        $http.get('http://localhost:8081/moder-service/api/v1/moder/m/' +id)
-            .then(function (response){
-                $scope.fillTable();
-            });
-    }
-
-    // $scope.incrementLike = function (id){
-    //     $http.get('http://localhost:8081/demo/api/v1/mem/inc/' +id)
+    // $scope.moder = function (id){
+    //     $http.put('http://localhost:8080/moder/' +id)
     //         .then(function (response){
     //             $scope.fillTable();
     //         });
     // }
+
+
     // $scope.decrementLike = function (id){
     //     $http.get('http://localhost:8081/demo/api/v1/mem/dec/' +id)
     //         .then(function (response){
@@ -59,5 +77,5 @@ angular.module('portal', []).controller('moderController', function ($scope, $ht
     //         })
     // }
 
-    $scope.fillTable();
+
 });

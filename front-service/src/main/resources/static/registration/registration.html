@@ -1,0 +1,27 @@
+<div>
+    <form ng-submit="tryToRegistration()" ng-show="!isUserLoggedIn()">
+        <div class="container">
+            <h1>Регистрация</h1>
+            <p><b>Пожалуйста заполните форму для регистрации на сайте:</b></p>
+            <hr>
+            <p>
+                <label>Имя пользователя</label>
+                <input class="form-control" ng-model="newUser.username" type="text" placeholder="Имя пользователя" >
+            <p>
+                <label>Номер телефона</label>
+                <input class="form-control" ng-model="newUser.email" type="text" placeholder="Номер телефона" >
+            <p>
+                <label>Пароль</label>
+                <input class="form-control" ng-model="newUser.password" type="password" placeholder="Введите пароль" >
+            <p>
+                <label>Повторите пароль</label>
+                <input class="form-control" ng-model="newUser.confirmPassword" type="password" placeholder="Повторите пароль" >
+            <hr>
+            <p>
+                <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+        </div>
+        <div ng-show="isUserLoggedIn()">
+            <h3>Вы уже зарегистрированны</h3>
+        </div>
+    </form>
+</div>

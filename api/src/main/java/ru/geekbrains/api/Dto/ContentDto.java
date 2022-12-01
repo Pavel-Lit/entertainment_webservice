@@ -1,4 +1,4 @@
-package ru.geekbrains.moderateservice.dto;
+package ru.geekbrains.api.Dto;
 
 import lombok.Data;
 

@@ -1,71 +1,75 @@
-angular.module('portal', []).controller('contentController', function ($scope, $http) {
-    $scope.fillTable = function () {
-        $http.get('http://localhost:5555/core/api/v1/mem/')
-            .then(function (response) {
-                $scope.mems = response.data;
-                console.log($scope.mems);
-            });
-    };
-    $scope.fillTableUnmoder = function () {
-        $http.get('http://localhost:8080/core-service/api/v1/mem/unmoderate')
-            .then(function (response) {
-                $scope.cont = response.data;
-                console.log($scope.mems);
-            });
-    };
-    // $scope.fillTableM = function () {
-    //     $http.get('http://localhost:8080/moder')
-    //         .then(function (response) {
-    //             $scope.mems = response.data;
-    //             console.log($scope.mems);
-    //         });
-    // };
+(function () {
+    angular
+        .module('portal', ['ngRoute', 'ngStorage'])
+        .config(config)
+        .run();
 
-    // $scope.moder = function (id){
-    //     $http.put('http://localhost:8080/moder/' +id)
-    //         .then(function (response){
-    //             $scope.fillTable();
-    //         });
-    // }
-
-    $scope.moderate = function (id){
-        $http.get('http://localhost:8080/core-service/api/v1/mem/' +id)
-            .then(function (response){
-                $scope.fillTableUnmoder();
-
+    function config($routeProvider) {
+        $routeProvider
+            .when('/', {
+                templateUrl: 'welcome/welcome.html',
+                controller: 'welcomeController'
+            })
+            .when('/content', {
+                templateUrl: 'content/content.html',
+                controller: 'contentController'
+            })
+            .when('/moderate', {
+                templateUrl: 'moderate/moderate.html',
+                controller: 'moderateController'
+            })
+            .when('/registration',{
+                templateUrl: 'registration/registration.html',
+                controller: 'registrationController'
+            })
+            .otherwise({
+                redirectTo: '/'
             });
     }
-    // $scope.decrementLike = function (id){
-    //     $http.get('http://localhost:8081/demo/api/v1/mem/dec/' +id)
-    //         .then(function (response){
-    //             $scope.fillTable();
-    //         });
-    // }
 
-    // $scope.deleteStudent = function (id) {
-    //     $http.delete('http://localhost:8081/interview/api/v1/student/' + id)
-    //         .then(function (response) {
-    //             $scope.fillTable();
-    //         });
-    // }
-    //
-    // $scope.createNewStudent = function () {
-    //     // console.log($scope.newProduct);
-    //     $http.post('http://localhost:8081/interview/api/v1/student', $scope.newStudent)
-    //         .then(function (response) {
-    //             $scope.newProduct = null;
-    //             $scope.fillTable();
-    //         });
-    // }
-    //
-    // $scope.updateSomeStudent = function (){
-    //     $http.put('http://localhost:8081/interview/api/v1/student/update', $scope.updateStudent)
-    //         .then(function (response) {
-    //             $scope.updateStudent = null;
-    //             $scope.fillTable();
-    //         })
-    // }
+})();
 
-    $scope.fillTable();
-    $scope.fillTableUnmoder();
+angular.module('portal').controller('indexController', function ($rootScope, $scope, $http, $location, $localStorage) {
+    $scope.tryToAuth = function () {
+        $http.post('http://localhost:5555/auth/authenticate', $scope.user)
+            .then(function successCallback(response) {
+                if (response.data.token) {
+                    $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
+                    $localStorage.marchMarketUser = {username: $scope.user.username, token: response.data.token};
+
+                    $scope.user.username = null;
+                    $scope.user.password = null;
+                    $location.path('/');
+                }
+            }, function errorCallback(response) {
+            });
+    };
+
+    $scope.tryToLogout = function () {
+        $scope.clearUser();
+        $location.path('/');
+    };
+
+    $scope.clearUser = function () {
+        delete $localStorage.marchMarketUser;
+        $http.defaults.headers.common.Authorization = '';
+    };
+
+
+
+    $rootScope.isUserLoggedIn = function () {
+        if ($localStorage.marchMarketUser) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    $scope.about = function (){
+        $http.get('http://localhost:5555/auth/info')
+            .then(function (response){
+                console.log(response)
+                alert("Имя пользователя: "+response.data.name + "\nemail: "+ response.data.email)
+            });
+    };
 });

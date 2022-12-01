@@ -1,12 +1,23 @@
 package ru.geekbrains.moderateservice.service;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
+import ru.geekbrains.api.Dto.ContentDto;
+import ru.geekbrains.moderateservice.integration.CoreServiceIntegration;
 
-@RestController
-@RequestMapping("/api/v1/moderate")
+@Service
+@RequiredArgsConstructor
 public class ModerateService {
+    private final CoreServiceIntegration coreServiceIntegration;
 
+    public Flux<ContentDto> AllUnModerateContent() {
+        return coreServiceIntegration.getAllUnModerateContent();
+    }
+
+    public void fromModerateContent(Long id) {
+        coreServiceIntegration.moderateContent(id);
+    }
 
 
 }
