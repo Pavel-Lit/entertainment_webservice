@@ -1,7 +1,7 @@
 package ru.geekbrains.coreservice.converters;
 
 import org.springframework.stereotype.Component;
-import ru.geekbrains.api.Dto.ContentDto;
+import ru.geekbrains.coreservice.Dto.ContentDto;
 import ru.geekbrains.coreservice.entities.Contents;
 
 @Component

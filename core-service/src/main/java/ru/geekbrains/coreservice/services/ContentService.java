@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import ru.geekbrains.api.Dto.ContentDto;
+import ru.geekbrains.coreservice.Dto.ContentDto;
 import ru.geekbrains.coreservice.converters.ContentConverter;
 import ru.geekbrains.coreservice.repositories.ContentRepository;
 

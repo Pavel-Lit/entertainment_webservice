@@ -1,12 +1,10 @@
 package ru.geekbrains.moderateservice.integration;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
-import ru.geekbrains.api.Dto.ContentDto;
+import ru.geekbrains.coreservice.Dto.ContentDto;
 
 @Component
 @RequiredArgsConstructor

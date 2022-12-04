@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import ru.geekbrains.api.Dto.ContentDto;
+import ru.geekbrains.coreservice.Dto.ContentDto;
 import ru.geekbrains.coreservice.services.ContentService;
 
 @RestController

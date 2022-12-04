@@ -3,7 +3,7 @@ package ru.geekbrains.moderateservice.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
-import ru.geekbrains.api.Dto.ContentDto;
+import ru.geekbrains.coreservice.Dto.ContentDto;
 import ru.geekbrains.moderateservice.integration.CoreServiceIntegration;
 
 @Service

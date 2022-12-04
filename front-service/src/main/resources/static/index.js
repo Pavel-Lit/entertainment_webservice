@@ -35,7 +35,7 @@ angular.module('portal').controller('indexController', function ($rootScope, $sc
             .then(function successCallback(response) {
                 if (response.data.token) {
                     $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
-                    $localStorage.marchMarketUser = {username: $scope.user.username, token: response.data.token};
+                    $localStorage.WebUser = {username: $scope.user.username, token: response.data.token};
 
                     $scope.user.username = null;
                     $scope.user.password = null;
@@ -51,14 +51,14 @@ angular.module('portal').controller('indexController', function ($rootScope, $sc
     };
 
     $scope.clearUser = function () {
-        delete $localStorage.marchMarketUser;
+        delete $localStorage.WebUser;
         $http.defaults.headers.common.Authorization = '';
     };
 
 
 
     $rootScope.isUserLoggedIn = function () {
-        if ($localStorage.marchMarketUser) {
+        if ($localStorage.WebUser) {
             return true;
         } else {
             return false;
