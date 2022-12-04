@@ -1,0 +1,13 @@
+{
+  "properties": [
+    {
+      "name": "springbootwebfluxjjwt.password.encoder.secret",
+      "type": "java.lang.String",
+      "description": "Description for springbootwebfluxjjwt.password.encoder.secret."
+    },
+    {
+      "name": "springbootwebfluxjjwt.jjwt.secret",
+      "type": "java.lang.String",
+      "description": "Description for springbootwebfluxjjwt.jjwt.secret."
+    }
+  ] }
