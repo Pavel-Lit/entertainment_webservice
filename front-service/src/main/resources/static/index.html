@@ -25,10 +25,10 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#!/content">Приколы</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" ng-show="isUserLoggedIn()">
                     <a class="nav-link" href="#!/moderate">Модерация</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" ng-show="!isUserLoggedIn()">
                     <a class="nav-link" href="#!/registration">Регистрация</a>
                 </li>
                 <li class="nav-item" ng-show="!isUserLoggedIn()">
@@ -43,8 +43,6 @@
                             <button id="navLoginSubmit" class="btn btn-outline-warning btn-sm"
                                     style="margin-left: 10px;" type="submit">Войти
                             </button>
-
-
                         </div>
                     </form>
                 </li>

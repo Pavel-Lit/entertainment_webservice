@@ -1,7 +1,26 @@
 server:
   port: 8082
-  servlet:
+spring:
+  webflux:
     base-path: /auth-service
-jwt:
-  secret: h4f8093h4f983yhrt9834hr0934hf0hf493g493gf438rh438th34g34g
-  lifetime: 36000000
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5433/postgres?currentSchema=public
+    username: postgres
+    password: postgres
+  jpa:
+    show-sql: true
+  flyway:
+    username: postgres
+    password: postgres
+    datasource:
+      url: jdbc:tc:postgresql:11.2://localhost:5433/postgres?currentSchema=public
+
+springbootwebfluxjjwt:
+  jjwt:
+    secret: h4f8093h4f983yhrt9834hr0934hf0hf493g493gf438rh438th34g34g
+    expiration: 36000000
+  password:
+    encoder:
+      secret: mysecret
+      iteration: 33
+      keylength: 256
