@@ -11,18 +11,18 @@ import ru.geekbrains.moderateservice.service.ModerateService;
 
 
 @RestController
-@RequestMapping("/api/v1/moderate/")
+@RequestMapping()
 @RequiredArgsConstructor
 public class ModerateController {
     private final ModerateService moderateService;
 
 
-    @GetMapping("/")
+    @GetMapping()
     public Flux<ContentDto> getContent(){
         return moderateService.AllUnModerateContent();
     }
 
-    @GetMapping("/m/{id}")
+    @GetMapping("/{id}")
     public void moderateContent(@PathVariable("id") Long id){
          moderateService.fromModerateContent(id);
     }

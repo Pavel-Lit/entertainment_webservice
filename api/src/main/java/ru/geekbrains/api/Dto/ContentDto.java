@@ -6,6 +6,10 @@ public class ContentDto {
     private String content;
     private String title;
 
+
+    public ContentDto() {
+    }
+
     public Long getId() {
         return id;
     }

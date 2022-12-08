@@ -1,6 +1,7 @@
 package ru.geekbrains.authservice.config;
 
 import io.jsonwebtoken.Claims;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.ReactiveAuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

@@ -1,6 +1,5 @@
 package ru.geekbrains.authservice.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -33,7 +32,7 @@ public class AdminService {
 
 
     public Mono<ServerResponse> updateRoleByUsername(User user) {
-        return userRepository.findByUsername(user.getUsername())
+        return userRepository.findByUsernameWitchQuery(user.getUsername())
                 .flatMap(u -> ServerResponse.status(HttpStatus.OK)
                         .contentType(MediaType.APPLICATION_JSON)
                         .body(adminRepository.save(user), User.class));
