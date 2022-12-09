@@ -1,5 +1,6 @@
 package ru.geekbrains.authservice.controllers;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -12,17 +13,13 @@ import ru.geekbrains.authservice.services.LoginService;
 
 @RestController
 @RequestMapping("/registration")
+@RequiredArgsConstructor
 public class RegistrationController {
-
     private final LoginService loginService;
-    @Autowired
-    public RegistrationController(LoginService loginService, RegisterUserConverter registerUserConverter) {
-        this.loginService = loginService;
-    }
-
 
     @PostMapping
-    public Mono<ServerResponse> registrationNewUser(@RequestBody RegisterUserDto registerUserDto) {
-       return loginService.addNewUser(registerUserDto);
+    @ResponseStatus(HttpStatus.CREATED)
+    public Mono registrationNewUser(@RequestBody RegisterUserDto registerUserDto) {
+      return loginService.addNewUser(registerUserDto);
     }
 }

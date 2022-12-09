@@ -1,6 +1,7 @@
 package ru.geekbrains.authservice.controllers;
 
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.server.ServerResponse;
@@ -11,13 +12,9 @@ import ru.geekbrains.authservice.services.AdminService;
 
 @RestController
 @RequestMapping("/administrate")
+@RequiredArgsConstructor
 public class AdminController {
     private final AdminService adminService;
-
-    @Autowired
-    public AdminController(AdminService adminService) {
-        this.adminService = adminService;
-    }
 
     @GetMapping
     public Flux<User> list(

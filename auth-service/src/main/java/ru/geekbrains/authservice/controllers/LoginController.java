@@ -1,5 +1,6 @@
 package ru.geekbrains.authservice.controllers;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,14 +12,10 @@ import ru.geekbrains.api.JwtResponse;
 import ru.geekbrains.authservice.services.LoginService;
 
 @RestController
+@RequiredArgsConstructor
 public class LoginController {
 
     private final LoginService loginService;
-
-    @Autowired
-    public LoginController(LoginService loginService) {
-        this.loginService = loginService;
-    }
 
     @PostMapping("/login")
     public Mono<ResponseEntity<JwtResponse>> login(@RequestBody JwtRequest req) {

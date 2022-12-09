@@ -3,14 +3,18 @@ package ru.geekbrains.authservice.config.utils;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import ru.geekbrains.authservice.entity.User;
 
 import javax.annotation.PostConstruct;
 import java.security.Key;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Component
 public class JwtUtil {
@@ -19,14 +23,6 @@ public class JwtUtil {
 
     @Value("${springbootwebfluxjjwt.jjwt.expiration}")
     private String expirationTime;
-
-
-    private Key key;
-
-    @PostConstruct
-    public void init() {
-        this.key = Keys.hmacShaKeyFor(secret.getBytes());
-    }
 
 
     public String extractUsername(String authToken) {
@@ -49,9 +45,12 @@ public class JwtUtil {
                 .after(new Date());
     }
 
-    public String generateToken(User user) {
+    public String generateToken(UserDetails user) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("role", user.getRole());
+        List<String> rolesList = user.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toList());
+        claims.put("role", rolesList);
         return doGenerateToken(claims, user.getUsername());
     }
 
@@ -65,7 +64,7 @@ public class JwtUtil {
                 .setSubject(username)
                 .setIssuedAt(createdDate)
                 .setExpiration(expirationDate)
-                .signWith(key)
+                .signWith(SignatureAlgorithm.HS256, secret)
                 .compact();
     }
 }

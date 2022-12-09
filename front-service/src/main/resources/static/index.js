@@ -26,7 +26,25 @@
                 redirectTo: '/'
             });
     }
+    function run($rootScope, $http, $localStorage) {
+        if ($localStorage.memPortalUser) {
+            try {
+                let jwt = $localStorage.memPortalUser.token;
+                let payload = JSON.parse(atob(jwt.split('.')[1]));
+                let currentTime = parseInt(new Date().getTime() / 1000);
+                if (currentTime > payload.exp) {
+                    console.log("Token is expired!!!");
+                    delete $localStorage.memPortalUser;
+                    $http.defaults.headers.common.Authorization = '';
+                }
+            } catch (e) {
+            }
 
+            if ($localStorage.memPortalUser) {
+                $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.memPortalUser.token;
+            }
+        }
+    }
 })();
 
 angular.module('portal').controller('indexController', function ($rootScope, $scope, $http, $location, $localStorage) {

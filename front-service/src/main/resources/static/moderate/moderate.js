@@ -1,7 +1,7 @@
 angular.module('portal').controller('moderateController', function ($scope, $http, $location) {
 
 
- const contextPath = 'http://localhost:5555/moderate/api/v1/moderate/';
+ const contextPath = 'http://localhost:5555/moderate';
 
 
     $scope.fillTable = function () {
@@ -14,7 +14,7 @@ angular.module('portal').controller('moderateController', function ($scope, $htt
 
 
     $scope.moder = function (id){
-        $http.get(contextPath + 'm/' +id)
+        $http.get(contextPath + '/' +id)
             .then(function (response){
                 $scope.fillTable();
             });
