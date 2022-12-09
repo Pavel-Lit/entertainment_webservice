@@ -1,17 +1,17 @@
-package ru.geekbrains.authservice.domain;
+package ru.geekbrains.authservice.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
 
 @Data
 @NoArgsConstructor
 public class Message {
-    @Id
-    private Long id;
+
+    private String code;
     private String data;
 
-    public Message(String data) {
+    public Message(String code, String data) {
+        this.code = code;
         this.data = data;
     }
 }

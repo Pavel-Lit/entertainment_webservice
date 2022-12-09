@@ -21,7 +21,7 @@ Hello, {{user}}!
         },
         body: `username=${this.username.value}&password=${this.password.value}`
     };
-    fetch('/login', payload).then(resp => resp.text()).then(t => token = t);
+    fetch('/auth-service/login', payload).then(resp => resp.text()).then(text => console.log(text));
     return false;
 "
 >
@@ -32,7 +32,7 @@ Hello, {{user}}!
 
 <input type="button" value="controller" onclick="
 fetch(
-    '/controller',
+    '/auth-service//controller',
     {
         headers: {
             'Authorization': `Bearer ${token}`
@@ -43,7 +43,7 @@ fetch(
 
 <input type="button" value="hello" onclick="
 fetch(
-    '/hello',
+    '/auth-service//hello',
     {
         headers: {
             'Authorization': `Bearer ${token}`

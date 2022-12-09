@@ -30,12 +30,13 @@
 })();
 
 angular.module('portal').controller('indexController', function ($rootScope, $scope, $http, $location, $localStorage) {
+
     $scope.tryToAuth = function () {
-        $http.post('http://localhost:5555/auth/authenticate', $scope.user)
+        $http.post('http://localhost:5555/auth/login', $scope.user)
             .then(function successCallback(response) {
                 if (response.data.token) {
                     $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
-                    $localStorage.marchMarketUser = {username: $scope.user.username, token: response.data.token};
+                    $localStorage.memPortalUser = {username: $scope.user.username, token: response.data.token};
 
                     $scope.user.username = null;
                     $scope.user.password = null;
@@ -51,14 +52,14 @@ angular.module('portal').controller('indexController', function ($rootScope, $sc
     };
 
     $scope.clearUser = function () {
-        delete $localStorage.marchMarketUser;
+        delete $localStorage.memPortalUser;
         $http.defaults.headers.common.Authorization = '';
     };
 
 
 
     $rootScope.isUserLoggedIn = function () {
-        if ($localStorage.marchMarketUser) {
+        if ($localStorage.memPortalUser) {
             return true;
         } else {
             return false;

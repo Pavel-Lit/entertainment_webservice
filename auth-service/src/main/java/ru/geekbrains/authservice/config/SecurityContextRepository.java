@@ -3,6 +3,7 @@ package ru.geekbrains.authservice.config;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.security.web.server.context.ServerSecurityContextRepository;
@@ -24,21 +25,13 @@ public class SecurityContextRepository implements ServerSecurityContextRepositor
     }
 
     @Override
-    public Mono<SecurityContext> load(ServerWebExchange exchange) {
-        String authHeader = exchange.getRequest()
-                .getHeaders()
-                .getFirst(HttpHeaders.AUTHORIZATION);
-
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            String authToken = authHeader.substring(7);
-
-            UsernamePasswordAuthenticationToken auth
-                    = new UsernamePasswordAuthenticationToken(authToken, authToken);
-            return authenticationManager
-                    .authenticate(auth)
-                    .map(SecurityContextImpl::new);
-        }
-
-        return Mono.empty();
+    public Mono<SecurityContext> load(ServerWebExchange swe) {
+        return Mono.justOrEmpty(swe.getRequest().getHeaders().getFirst(HttpHeaders.AUTHORIZATION))
+                .filter(authHeader -> authHeader.startsWith("Bearer "))
+                .flatMap(authHeader -> {
+                    String authToken = authHeader.substring(7);
+                    Authentication auth = new UsernamePasswordAuthenticationToken(authToken, authToken);
+                    return this.authenticationManager.authenticate(auth).map(SecurityContextImpl::new);
+                });
     }
 }
