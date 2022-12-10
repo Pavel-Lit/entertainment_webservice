@@ -20,10 +20,10 @@ angular.module('portal').controller('administrateController', function ($scope, 
     };
 
     $scope.updateSomeUser = function () {
-        $http.put("http://localhost:5555/auth/administrate/modifyRoles", $scope.User)
+        $http.post("http://localhost:5555/auth/administrate/modifyRoles", $scope.UserDto)
             .then(function successCallback(response) {
-                    $location.path('/');
-                $scope.User = null;
+                    // $location.path('/');
+                $scope.UserDto = null;
                 $scope.fillTable();
             })
     }

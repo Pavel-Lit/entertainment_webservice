@@ -27,7 +27,7 @@ public class AdminController {
         return adminService.listUsers().skip(start).take(count);
     }
 
-    @PutMapping("/modifyRoles")
+    @PostMapping("/modifyRoles")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public Mono<Void> updateRoleUser(@RequestBody UserDto user) {
         return adminService.updateRoleByUsername(user);
