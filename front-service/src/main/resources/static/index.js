@@ -2,7 +2,7 @@
     angular
         .module('portal', ['ngRoute', 'ngStorage'])
         .config(config)
-        .run();
+        .run(run);
 
     function config($routeProvider) {
         $routeProvider
@@ -21,6 +21,10 @@
             .when('/registration',{
                 templateUrl: 'registration/registration.html',
                 controller: 'registrationController'
+            })
+            .when('/administrate',{
+                templateUrl: 'administrate/administrate.html',
+                controller: 'administrateController'
             })
             .otherwise({
                 redirectTo: '/'

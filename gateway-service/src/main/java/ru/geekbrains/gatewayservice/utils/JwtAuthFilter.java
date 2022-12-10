@@ -13,9 +13,9 @@ import reactor.core.publisher.Mono;
 
 @Component
 public class JwtAuthFilter extends AbstractGatewayFilterFactory<JwtAuthFilter.Config> {
-    @Autowired
-    private final JwtUtil jwtUtil;
 
+    private final JwtUtil jwtUtil;
+    @Autowired
     public JwtAuthFilter(JwtUtil jwtUtil) {
         super(Config.class);
         this.jwtUtil = jwtUtil;
@@ -68,7 +68,7 @@ public class JwtAuthFilter extends AbstractGatewayFilterFactory<JwtAuthFilter.Co
         Claims claims = jwtUtil.getAllClaimsFromToken(token);
         exchange.getRequest().mutate()
                 .header("username", claims.getSubject())
-                .header("role", String.valueOf(claims.get("role")))
+                .header("role", claims.getSubject())
                 .build();
     }
 }

@@ -22,7 +22,6 @@ import ru.geekbrains.authservice.entity.UserRole;
 import ru.geekbrains.authservice.services.LoginService;
 
 @EnableWebFluxSecurity
-@EnableReactiveMethodSecurity
 @RequiredArgsConstructor
 public class WebSecurityConfig {
     private final AuthenticationManager authenticationManager;
@@ -57,9 +56,8 @@ public class WebSecurityConfig {
                 .authenticationManager(authenticationManager)
                 .securityContextRepository(securityContextRepository)
                 .authorizeExchange()
-                .pathMatchers("/moderate").hasRole("ADMIN")
-                .pathMatchers("/login").permitAll()
-
+                .pathMatchers( "/administrate/**").hasRole("ADMIN")
+                .pathMatchers("/login","/registration").permitAll()
                 .and()
                 .build();
     }

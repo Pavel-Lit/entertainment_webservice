@@ -1,6 +1,7 @@
 package ru.geekbrains.authservice.config;
 
 import io.jsonwebtoken.Claims;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.ReactiveAuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,8 +16,10 @@ import java.util.stream.Collectors;
 
 @Component
 public class AuthenticationManager implements ReactiveAuthenticationManager {
-    private final JwtUtil jwtUtil;
 
+
+    private final JwtUtil jwtUtil;
+    @Autowired
     public AuthenticationManager(JwtUtil jwtUtil) {
         this.jwtUtil = jwtUtil;
     }

@@ -11,6 +11,7 @@ import reactor.core.publisher.Mono;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Data
 @Table("usr")
@@ -46,4 +47,5 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }
