@@ -1,0 +1,45 @@
+
+    <p></p>
+    <h1>Администрирование</h1>
+    <p></p>
+    <h3>Наши пользователи</h3>
+    <p></p>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <td>ID</td>
+            <td>User</td>
+            <td>Role</td>
+            <td>Change</td>
+            <td>Apply</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Delete</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="u in users">
+            <td>{{u.id}}</td>
+            <td>{{u.username}}</td>
+            <td>{{u.role}}</td>
+         <td>
+             <form ng-submit="updateSomeUser()" ng-re >
+                 <div class="container">
+                         <input class="form-control" ng-model="User.id" type="text" placeholder={{u.id}} >
+                         <input class="form-control" ng-model="User.username" type="text" placeholder={{u.username}} >
+                         <input class="form-control" ng-model="User.role" type="text" placeholder={{u.role}} >
+                         <button type="submit" class="btn btn-primary">Apply</button>
+                 </div>
+             </form>
+        </td>
+            <td>
+                <button type="button" class="btn btn-primary btn-sm" ng-click="deleteUser(u.id)">Delete</button>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+
+    <p></p>
+</div>

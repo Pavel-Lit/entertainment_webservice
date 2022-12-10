@@ -1,4 +1,4 @@
-package ru.geekbrains.authservice.Exception;
+package ru.geekbrains.authservice.exception;
 
 
 import org.springframework.http.HttpStatus;
