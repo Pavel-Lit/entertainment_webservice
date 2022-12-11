@@ -1,10 +1,7 @@
 package ru.geekbrains.coreservice.controllers;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import ru.geekbrains.api.Dto.ContentDto;
@@ -30,4 +27,10 @@ public class ContentController {
     public Mono<Void> moderate(@PathVariable("id") Long id){
        return contentService.moderate(id);
     }
+
+    @PostMapping ("/addmem")
+    public Mono<Void> addContents(@PathVariable("contents") String text){
+        return contentService.addContent(text);
+    }
 }
+

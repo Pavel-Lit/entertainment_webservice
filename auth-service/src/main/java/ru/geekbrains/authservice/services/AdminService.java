@@ -33,7 +33,9 @@ public class AdminService {
     }
 
     public Mono<Void> deleteById(Long id) {
-        return userRepository.deleteById(id).and(Mono.empty());
+        return userRepository
+                .deleteById(id)
+                .and(Mono.empty());
     }
 
 

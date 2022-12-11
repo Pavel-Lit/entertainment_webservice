@@ -10,7 +10,8 @@
             <td>ID</td>
             <td>Mems</td>
             <td>Category</td>
-            <td>Likes</td>
+            <td>Approve</td>
+            <td>Delete</td>
         </tr>
         </thead>
         <tbody>
@@ -19,9 +20,13 @@
             <td>{{m.content}}</td>
             <td>{{m.title}}</td>
             <td>
-                <button type="button" class="btn btn-primary btn-sm" ng-click="moder(m.id)">+</button>
+                <button type="button" class="btn btn-primary btn-sm" ng-click="moder(m.id)">Approve</button>
             </td>
-
+            <td>
+                <button type="button" class="btn btn-primary btn-sm" ng-click="deleteContents(m.id)">Delete</button>
+            </td>
+        </tr>
+        </tbody>
         </tr>
         </tbody>
     </table>

@@ -1,10 +1,11 @@
 package ru.geekbrains.coreservice.repositories;
 
 import org.springframework.data.r2dbc.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
-import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import ru.geekbrains.api.Dto.ContentDto;
 import ru.geekbrains.coreservice.entities.Contents;
 
 
@@ -22,4 +23,10 @@ public interface ContentRepository extends ReactiveCrudRepository<Contents, Long
 
     @Query(value = "update contents set moderate =true where id = $1")
     Mono<Void> update(Long id);
+
+    @Query(value = "INSERT INTO contents(content(contentDto.getContent), moderate(false), category_id (1))")
+    Mono<Void> save(ContentDto contentDto);
+
+    @Query(value = "DELETE FROM contents WHERE id = $1")
+    Mono<Void> deleteContents (Long id);
 }

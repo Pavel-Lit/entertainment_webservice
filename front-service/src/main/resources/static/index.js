@@ -26,6 +26,10 @@
                 templateUrl: 'administrate/administrate.html',
                 controller: 'administrateController'
             })
+            .when('/addmem',{
+                templateUrl: 'addmem/addmem.html',
+                controller: 'addmemController'
+            })
             .otherwise({
                 redirectTo: '/'
             });

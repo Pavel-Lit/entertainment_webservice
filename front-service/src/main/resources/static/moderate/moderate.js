@@ -11,6 +11,12 @@ angular.module('portal').controller('moderateController', function ($scope, $htt
                 console.log($scope.mems);
             });
     };
+    $scope.deleteContents = function (id) {
+        $http.delete(contextPath + "/" + id)
+            .then(function (response) {
+                $scope.fillTable();
+            });
+    };
 
 
     $scope.moder = function (id){

@@ -27,4 +27,16 @@ public class ContentService {
     public Mono<Void> moderate(Long id) {
         return contentRepository.update(id);
     }
+
+    public Mono<Void> addContent(String text) {
+        ContentDto contentDto = new ContentDto();
+        contentDto.setContent(text);
+       return contentRepository.save(contentDto);
+    }
+
+    public Mono<Void> deleteContentById(Long id) {
+        return ContentRepository
+                .deleteById(id)
+                .and(Mono.empty());
+    }
 }

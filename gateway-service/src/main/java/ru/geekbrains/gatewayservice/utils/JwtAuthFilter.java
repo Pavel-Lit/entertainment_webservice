@@ -15,6 +15,7 @@ import reactor.core.publisher.Mono;
 public class JwtAuthFilter extends AbstractGatewayFilterFactory<JwtAuthFilter.Config> {
 
     private final JwtUtil jwtUtil;
+
     @Autowired
     public JwtAuthFilter(JwtUtil jwtUtil) {
         super(Config.class);
@@ -26,27 +27,30 @@ public class JwtAuthFilter extends AbstractGatewayFilterFactory<JwtAuthFilter.Co
         return (exchange, chain) -> {
             ServerHttpRequest request = exchange.getRequest();
 
-            if (request.getHeaders().containsKey("username")) {
-                return this.onError(exchange, "Invalid header username", HttpStatus.BAD_REQUEST);
-            }
-
             if (!isAuthMissing(request)) {
                 final String token = getAuthHeader(request);
+
                 if (jwtUtil.isInvalid(token)) {
-                    return this.onError(exchange, "Authorization header is invalid", HttpStatus.UNAUTHORIZED);
+                    return this.onError(exchange, "Authorization header is invalid", HttpStatus.BAD_REQUEST);
+                }
+                if (!jwtUtil.isAdmin(token)) {
+                    return this.onError(exchange, "ACCESS only for ADMIN", HttpStatus.FORBIDDEN);
                 }
                 populateRequestWithHeaders(exchange, token);
+                return   chain.filter(exchange);
             }
-            return chain.filter(exchange);
+//            return
+            ;
+            return this.onError(exchange, "ACCESS only for ADMIN", HttpStatus.FORBIDDEN);
         };
     }
 
     public static class Config {
     }
 
-    private Mono<Void> onError(ServerWebExchange exchange, String err, HttpStatus httpStatus) {
+    private Mono<Void> onError(ServerWebExchange exchange, String err, HttpStatus badRequest) {
         ServerHttpResponse response = exchange.getResponse();
-        response.setStatusCode(httpStatus);
+        response.setStatusCode(badRequest);
         return response.setComplete();
     }
 
@@ -65,9 +69,8 @@ public class JwtAuthFilter extends AbstractGatewayFilterFactory<JwtAuthFilter.Co
     }
 
     private void populateRequestWithHeaders(ServerWebExchange exchange, String token) {
-        Claims claims = jwtUtil.getAllClaimsFromToken(token);
+        Claims claims = jwtUtil.getClaimsFromToken(token);
         exchange.getRequest().mutate()
-                .header("username", claims.getSubject())
                 .header("role", claims.getSubject())
                 .build();
     }
