@@ -25,6 +25,5 @@ public class CoreServiceIntegration {
                 .uri("/api/v1/mem/"+id)
                 .retrieve()
                 .toBodilessEntity().subscribe();
-        System.out.println("ok");
     }
 }

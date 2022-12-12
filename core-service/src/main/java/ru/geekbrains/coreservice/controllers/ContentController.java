@@ -35,4 +35,14 @@ public class ContentController {
 //        return contentService.setLike(id, username);
          contentService.setLike(id, username);
     }
+
+    @PostMapping ("/addmem")
+    public Mono<Void> addContents(@RequestBody ContentDto contentDto){
+        return contentService.addContent(contentDto);
+    }
+
+    @DeleteMapping("/{id}")
+    public Mono<Void> deleteContents(@PathVariable("id") Long id) {
+        return contentService.deleteContentById(id);
+    }
 }

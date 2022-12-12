@@ -14,4 +14,11 @@ public class ContentConverter {
         contentDto.setTitle(contents.getTitle());
         return contentDto;
     }
+    public Contents DtoToEntity(ContentDto dto){
+        Contents contents = new Contents();
+        contents.setId(dto.getId());
+        contents.setContent(dto.getContent());
+        contents.setTitle(dto.getTitle());
+        return contents;
+    }
 }

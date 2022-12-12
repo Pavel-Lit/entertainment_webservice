@@ -5,6 +5,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import ru.geekbrains.api.Dto.ContentDto;
 import ru.geekbrains.coreservice.entities.Contents;
 import ru.geekbrains.coreservice.entities.Likes;
 
@@ -24,6 +25,11 @@ public interface ContentRepository extends ReactiveCrudRepository<Contents, Long
     @Query(value = "update contents set moderate =true where id = $1")
     Mono<Void> update(Long id);
 
+
+
+    @Query(value = "INSERT INTO contents (content,category_id, moderate) values ( $1, $2, FALSE)")
+    Mono<Void> saveContentWithQuery(String content, int content_id);
+
     @Query(value = "update contents set likes = likes+1 where id=:id")
     void inkrementLike(Long id);
 
@@ -37,4 +43,8 @@ public interface ContentRepository extends ReactiveCrudRepository<Contents, Long
 
     @Query(value = "delete from likes where username = :name and content_id = :id")
     Mono<Void> decrementLikes(@Param("name") String username, @Param("id") Long id);
+}
+
+    @Query(value = "DELETE FROM contents WHERE id = $1")
+    Mono<Void> deleteContents(Long id);
 }

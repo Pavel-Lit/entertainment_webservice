@@ -41,11 +41,17 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-r2dbc</artifactId>
+        </dependency>
+        <dependency>
             <groupId>ru.geekbrains</groupId>
-            <artifactId>api</artifactId>
+            <artifactId>core-service</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
+
+
     </dependencies>
 
     <build>

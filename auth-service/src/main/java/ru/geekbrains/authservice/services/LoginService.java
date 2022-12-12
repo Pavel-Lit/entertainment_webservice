@@ -1,5 +1,6 @@
 package ru.geekbrains.authservice.services;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,19 +21,12 @@ import ru.geekbrains.authservice.entity.UserRole;
 import ru.geekbrains.authservice.repositories.UserRepository;
 
 @Service
+@RequiredArgsConstructor
 public class LoginService implements ReactiveUserDetailsService {
     private final UserRepository userRepository;
     private final PBKDF2Encoder passwordEncoder;
     private final RegisterUserConverter converter;
     private final JwtUtil jwtUtil;
-
-    @Autowired
-    public LoginService(UserRepository userRepository, PBKDF2Encoder passwordEncoder, RegisterUserConverter converter, JwtUtil jwtUtil) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.converter = converter;
-        this.jwtUtil = jwtUtil;
-    }
 
     @Override
     public Mono<UserDetails> findByUsername(String username) {
@@ -56,11 +50,9 @@ public class LoginService implements ReactiveUserDetailsService {
         User user = convertDtoToUser(UserDto);
         user.setRole(UserRole.ROLE_USER);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.findByUsernameWitchQuery(user.getUsername()).flatMap((el) ->
-                Mono.error(new UserAlreadyExistsException(user.getUsername()))
-        ).switchIfEmpty(
-                Mono.defer(() -> userRepository.save(user))
-        );
+        return userRepository.findByUsernameWitchQuery(user.getUsername())
+                .flatMap((el) -> Mono.error(new UserAlreadyExistsException(user.getUsername())))
+                .switchIfEmpty(Mono.defer(() -> userRepository.save(user)));
     }
 
     private User convertDtoToUser(RegisterUserDto registerUserDto) {

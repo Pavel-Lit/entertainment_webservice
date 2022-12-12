@@ -37,10 +37,9 @@ public class JwtAuthFilter extends AbstractGatewayFilterFactory<JwtAuthFilter.Co
                     return this.onError(exchange, "ACCESS only for ADMIN", HttpStatus.FORBIDDEN);
                 }
                 populateRequestWithHeaders(exchange, token);
-              return   chain.filter(exchange);
+                return   chain.filter(exchange);
             }
-//            return
-            ;
+
             return this.onError(exchange, "ACCESS only for ADMIN", HttpStatus.FORBIDDEN);
         };
     }

@@ -1,12 +1,11 @@
 package ru.geekbrains.moderateservice.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 import ru.geekbrains.api.Dto.ContentDto;
+import ru.geekbrains.coreservice.services.ContentService;
 import ru.geekbrains.moderateservice.service.ModerateService;
 
 
@@ -26,4 +25,6 @@ public class ModerateController {
     public void moderateContent(@PathVariable("id") Long id){
          moderateService.fromModerateContent(id);
     }
+
+
 }
