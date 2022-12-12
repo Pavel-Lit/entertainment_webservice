@@ -40,7 +40,6 @@ public class JwtUtil {
                 .toString();
         return admin.equals("[ROLE_ADMIN]");
     }
-
-
-
 }
+
+

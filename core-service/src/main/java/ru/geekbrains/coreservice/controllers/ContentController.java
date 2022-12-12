@@ -1,12 +1,10 @@
 package ru.geekbrains.coreservice.controllers;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import ru.geekbrains.api.Dto.ContentDto;
-import ru.geekbrains.coreservice.exception.ErrorDto;
 import ru.geekbrains.coreservice.services.ContentService;
 
 @RestController
@@ -28,6 +26,14 @@ public class ContentController {
     @GetMapping ("/{id}")
     public Mono<Void> moderate(@PathVariable("id") Long id){
        return contentService.moderate(id);
+
+    }
+
+    @GetMapping("/likes/{id}")
+    public void setLike(@PathVariable("id") Long id, @RequestHeader String username){
+        System.out.println(username);
+//        return contentService.setLike(id, username);
+         contentService.setLike(id, username);
     }
 
     @PostMapping ("/addmem")
@@ -40,4 +46,3 @@ public class ContentController {
         return contentService.deleteContentById(id);
     }
 }
-
