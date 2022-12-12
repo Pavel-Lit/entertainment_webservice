@@ -2,11 +2,16 @@ package ru.geekbrains.coreservice.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import ru.geekbrains.api.Dto.ContentDto;
 import ru.geekbrains.coreservice.converters.ContentConverter;
+import ru.geekbrains.coreservice.entities.Contents;
+import ru.geekbrains.coreservice.exception.ContentNotFoundException;
 import ru.geekbrains.coreservice.repositories.ContentRepository;
+
+import javax.swing.text.AbstractDocument;
 
 @Repository
 @RequiredArgsConstructor
@@ -28,15 +33,21 @@ public class ContentService {
         return contentRepository.update(id);
     }
 
-    public Mono<Void> addContent(String text) {
-        ContentDto contentDto = new ContentDto();
-        contentDto.setContent(text);
-       return contentRepository.save(contentDto);
+    //java.lang.NumberFormatException: null необходимо обработать ошибку
+    public Mono<Void> addContent(ContentDto contentDto) {
+        Contents contents = contentConverter.DtoToEntity(contentDto);
+        return contentRepository.saveContentWithQuery(
+                contents.getContent(),
+                Integer.parseInt(contents.getTitle())
+        ).and(Mono.empty());
     }
 
     public Mono<Void> deleteContentById(Long id) {
-        return ContentRepository
-                .deleteById(id)
-                .and(Mono.empty());
+        return contentRepository.findById(id).flatMap(e ->
+                        Mono.defer(() -> contentRepository.deleteContents(id)))
+                .switchIfEmpty(
+                        Mono.error(
+                                new ContentNotFoundException(
+                                        String.format("Content with ID: %d NOT FOUND", id))));
     }
 }

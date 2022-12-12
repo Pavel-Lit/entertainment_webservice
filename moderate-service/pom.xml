@@ -41,12 +41,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>Unknown</groupId>
-            <artifactId>api</artifactId>
-            <version>Unknown</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-r2dbc</artifactId>
         </dependency>

@@ -29,8 +29,13 @@ public class ContentController {
     }
 
     @PostMapping ("/addmem")
-    public Mono<Void> addContents(@PathVariable("contents") String text){
-        return contentService.addContent(text);
+    public Mono<Void> addContents(@RequestBody ContentDto contentDto){
+        return contentService.addContent(contentDto);
+    }
+
+    @DeleteMapping("/{id}")
+    public Mono<Void> deleteContents(@PathVariable("id") Long id) {
+        return contentService.deleteContentById(id);
     }
 }
 

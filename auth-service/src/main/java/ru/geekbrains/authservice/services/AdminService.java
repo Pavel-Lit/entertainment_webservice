@@ -1,5 +1,6 @@
 package ru.geekbrains.authservice.services;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,17 +17,11 @@ import ru.geekbrains.authservice.repositories.AdminRepository;
 import ru.geekbrains.authservice.repositories.UserRepository;
 
 @Service
+@RequiredArgsConstructor
 public class AdminService {
     private final AdminRepository adminRepository;
     private final UserRepository userRepository;
     private final UserConverter converter;
-
-    @Autowired
-    public AdminService(AdminRepository adminRepository, UserRepository userRepository, UserConverter converter) {
-        this.adminRepository = adminRepository;
-        this.userRepository = userRepository;
-        this.converter = converter;
-    }
 
     public Flux<User> listUsers() {
         return adminRepository.findAll();

@@ -14,7 +14,6 @@ import ru.geekbrains.moderateservice.service.ModerateService;
 @RequiredArgsConstructor
 public class ModerateController {
     private final ModerateService moderateService;
-    private final ContentService contentService;
 
 
     @GetMapping()
@@ -26,8 +25,6 @@ public class ModerateController {
     public void moderateContent(@PathVariable("id") Long id){
          moderateService.fromModerateContent(id);
     }
-    @DeleteMapping("/{id}")
-    public Mono<Void> deleteContents(@PathVariable("id") Long id) {
-        return contentService.deleteContentById(id);
-    }
+
+
 }

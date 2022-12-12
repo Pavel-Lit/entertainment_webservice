@@ -80,9 +80,9 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>Unknown</groupId>
+            <groupId>ru.geekbrains</groupId>
             <artifactId>api</artifactId>
-            <version>Unknown</version>
+            <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

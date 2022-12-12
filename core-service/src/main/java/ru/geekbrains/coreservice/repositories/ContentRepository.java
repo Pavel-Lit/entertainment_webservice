@@ -24,9 +24,11 @@ public interface ContentRepository extends ReactiveCrudRepository<Contents, Long
     @Query(value = "update contents set moderate =true where id = $1")
     Mono<Void> update(Long id);
 
-    @Query(value = "INSERT INTO contents(content(contentDto.getContent), moderate(false), category_id (1))")
-    Mono<Void> save(ContentDto contentDto);
+
+
+    @Query(value = "INSERT INTO contents (content,category_id, moderate) values ( $1, $2, FALSE)")
+    Mono<Void> saveContentWithQuery(String content, int content_id);
 
     @Query(value = "DELETE FROM contents WHERE id = $1")
-    Mono<Void> deleteContents (Long id);
+    Mono<Void> deleteContents(Long id);
 }

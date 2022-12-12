@@ -1,15 +1,21 @@
 <div>
-    <p></p>
-    <h1>Добавить ваш мем</h1>
-    <p></p>
-    <hr>
-    <p>
-        <label>Имя пользователя</label>
-        <input class="form-control" ng-model="newContent.content" type="text" placeholder="Ваш мем" >
-    <p>
-        <button type="submit" class="btn btn-primary">Добавить</button>
+    <form ng-submit="addmem()" ng-show="isUserLoggedIn()">
+        <div class="container">
+            <h1>Отправьте свои шутки</h1>
+            <p><b>Пожалуйста заполните форму для отправки шутки на модерацию:</b></p>
+            <hr>
+            <p>
+                <label>Шутку вот сюда</label>
+                <input class="form-control" ng-model="newMem.content" type="text" placeholder="Сюда шутку">
+            <p>
+                <label>Категория шутки</label>
+            <select class="form-select form-select-sm"  ng-model="newMem.title" aria-label=".form-select-sm example">
+                <option selected></option>
+                <option value="1">mem</option>
+                <option value="2">anekdot</option>
+            </select>
+<!--                <input class="form-control" ng-model="newMem.category_ad" type="text" placeholder="категория шутки">-->
+                <button type="submit" class="btn btn-primary">Отправить</button>
+        </div>
+    </form>
 </div>
-
-</div>
-</body>
-</html>
