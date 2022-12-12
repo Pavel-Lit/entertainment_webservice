@@ -29,8 +29,10 @@ create table likes
             primary key,
     content_id bigserial
         constraint likes_contents_id_fk
-            references contents
+            references contents,
+    username   varchar(255)
 );
+
 
 insert into categories (title) values ('mem');
 insert into categories (title) values ('anekdot');

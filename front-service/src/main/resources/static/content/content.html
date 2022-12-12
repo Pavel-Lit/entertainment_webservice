@@ -19,7 +19,7 @@
             <td>{{m.content}}</td>
             <td>{{m.title}}</td>
             <td>
-                <button type="button" class="btn btn-primary btn-sm" ng-click="incrementLike(m.id)">+</button>
+                <button type="button" class="btn btn-primary btn-sm"  ng-click="decrementLike(m.id)">{{m.likes}}</button>
             </td>
         </tr>
         </tbody>

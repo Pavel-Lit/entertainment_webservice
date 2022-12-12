@@ -22,7 +22,8 @@ angular.module('portal').controller('administrateController', function ($scope, 
     $scope.updateSomeUser = function () {
         $http.put("http://localhost:5555/auth/administrate/modifyRoles", $scope.User)
             .then(function successCallback(response) {
-                    $location.path('/');
+                    // $location.path('/');
+                console.log($scope.User);
                 $scope.User = null;
                 $scope.fillTable();
             })
