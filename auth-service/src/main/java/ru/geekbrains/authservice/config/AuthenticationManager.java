@@ -29,7 +29,7 @@ public class AuthenticationManager implements ReactiveAuthenticationManager {
         String authToken = authentication.getCredentials().toString();
         String username = jwtUtil.extractUsername(authToken);
         return Mono.just(jwtUtil.validateToken(authToken))
-                .filter(valid -> valid)
+                .filter(validateToken -> jwtUtil.validateToken(authToken))
                 .switchIfEmpty(Mono.empty())
                 .map(valid -> {
                     Claims claims = jwtUtil.getClaimsFromToken(authToken);
