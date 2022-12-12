@@ -12,8 +12,15 @@ import reactor.core.publisher.Mono;
 public class GlobalExceptionController {
     @ExceptionHandler(ContentNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public Mono handleUserNotFoundException(Exception ex) {
+    public Mono<ErrorDto> handleUserNotFoundException(Exception ex) {
         return Mono.just(new ErrorDto("NOT_FOUND", ex.getMessage()));
+    }
+
+
+    @ExceptionHandler(FieldsNotFilledException.class)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public Mono<ErrorDto> handleFieldsNotFilledException(Exception ex) {
+        return Mono.just(new ErrorDto("NO_FOUND", ex.getMessage()));
     }
 
 }

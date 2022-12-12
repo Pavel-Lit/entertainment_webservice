@@ -2,16 +2,15 @@ package ru.geekbrains.coreservice.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import ru.geekbrains.api.Dto.ContentDto;
 import ru.geekbrains.coreservice.converters.ContentConverter;
 import ru.geekbrains.coreservice.entities.Contents;
 import ru.geekbrains.coreservice.exception.ContentNotFoundException;
+import ru.geekbrains.coreservice.exception.ErrorDto;
+import ru.geekbrains.coreservice.exception.FieldsNotFilledException;
 import ru.geekbrains.coreservice.repositories.ContentRepository;
-
-import javax.swing.text.AbstractDocument;
 
 @Repository
 @RequiredArgsConstructor
@@ -33,21 +32,26 @@ public class ContentService {
         return contentRepository.update(id);
     }
 
-    //java.lang.NumberFormatException: null необходимо обработать ошибку
+
     public Mono<Void> addContent(ContentDto contentDto) {
         Contents contents = contentConverter.DtoToEntity(contentDto);
+        if (contents.getTitle() == null || contents.getContent() == null) {
+                return Mono.error(new FieldsNotFilledException("NOT_FILLED"));
+            }
         return contentRepository.saveContentWithQuery(
-                contents.getContent(),
-                Integer.parseInt(contents.getTitle())
-        ).and(Mono.empty());
+                        contents.getContent(),
+                        Integer.parseInt(contents.getTitle()))
+                .flatMap((e) -> Mono.empty());
     }
 
     public Mono<Void> deleteContentById(Long id) {
-        return contentRepository.findById(id).flatMap(e ->
-                        Mono.defer(() -> contentRepository.deleteContents(id)))
+        return contentRepository.findById(id)
                 .switchIfEmpty(
                         Mono.error(
                                 new ContentNotFoundException(
-                                        String.format("Content with ID: %d NOT FOUND", id))));
+                                        String.format("Content with ID: %d NOT FOUND", id))))
+                .flatMap(e ->
+                        Mono.defer(() -> contentRepository.deleteContents(id)));
+
     }
 }

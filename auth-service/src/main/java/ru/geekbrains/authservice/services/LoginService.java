@@ -50,11 +50,9 @@ public class LoginService implements ReactiveUserDetailsService {
         User user = convertDtoToUser(UserDto);
         user.setRole(UserRole.ROLE_USER);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.findByUsernameWitchQuery(user.getUsername()).flatMap((el) ->
-                Mono.error(new UserAlreadyExistsException(user.getUsername()))
-        ).switchIfEmpty(
-                Mono.defer(() -> userRepository.save(user))
-        );
+        return userRepository.findByUsernameWitchQuery(user.getUsername())
+                .flatMap((el) -> Mono.error(new UserAlreadyExistsException(user.getUsername())))
+                .switchIfEmpty(Mono.defer(() -> userRepository.save(user)));
     }
 
     private User convertDtoToUser(RegisterUserDto registerUserDto) {

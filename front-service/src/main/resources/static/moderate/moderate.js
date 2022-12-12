@@ -1,18 +1,19 @@
 angular.module('portal').controller('moderateController', function ($scope, $http, $location) {
 
 
- const contextPath = 'http://localhost:5555/moderate';
+ const contextPathModerate = 'http://localhost:5555/moderate';
+ const contextPathContents = 'http://localhost:5555/core/api/v1/mem/';
 
 
     $scope.fillTable = function () {
-        $http.get(contextPath)
+        $http.get(contextPathModerate)
             .then(function (response) {
                 $scope.mems = response.data;
                 console.log($scope.mems);
             });
     };
     $scope.deleteContents = function (id) {
-        $http.delete(contextPath + "/" + id)
+        $http.delete(contextPathContents + id)
             .then(function (response) {
                 $scope.fillTable();
             });
@@ -20,7 +21,7 @@ angular.module('portal').controller('moderateController', function ($scope, $htt
 
 
     $scope.moder = function (id){
-        $http.get(contextPath + '/' +id)
+        $http.get(contextPathModerate + '/' +id)
             .then(function (response){
                 $scope.fillTable();
             });
