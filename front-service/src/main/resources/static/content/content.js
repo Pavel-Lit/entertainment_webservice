@@ -46,12 +46,12 @@ angular.module('portal').controller('contentController', function ($scope, $http
     // }
 
 
-    // $scope.decrementLike = function (id){
-    //     $http.get('http://localhost:8081/demo/api/v1/mem/dec/' +id)
-    //         .then(function (response){
-    //             $scope.fillTable();
-    //         });
-    // }
+    $scope.decrementLike = function (id){
+        $http.get(contextPath+'likes/' +id)
+            .then(function (response){
+                $scope.fillTable();
+            });
+    }
 
     // $scope.deleteStudent = function (id) {
     //     $http.delete('http://localhost:8081/interview/api/v1/student/' + id)
