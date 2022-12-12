@@ -24,7 +24,7 @@ spring:
           filters:
             - StripPrefix=1
             - PrefixPath=/core-service
-            - JwtAuthFilter
+#            - JwtAuthFilter
             - name: RequestSize
 #              args:
 #                maxSize: 1000000
@@ -43,7 +43,7 @@ spring:
           filters:
             - StripPrefix=1
             - PrefixPath=/auth-service
-            - JwtAuthFilter
+#            - JwtAuthFilter
 
 jwt:
   secret: h4f8093h4f983yhrt9834hr0934hf0hf493g493gf438rh438th34g34g
