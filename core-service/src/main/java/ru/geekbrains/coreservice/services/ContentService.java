@@ -60,39 +60,24 @@ public class ContentService {
     }
 
     public Mono<Void> setLike(Long id, String username) {
-//        Mono<Likes> likes = contentRepository.getByUsernameAndId(username, id)
-//                .as();
-        Likes likes = new Likes();
-        if(likes == null){
-            contentRepository.updateLike(username, id);
-            contentRepository.inkrementLike(id);
-        } else {
-            contentRepository.decrementLikes(username, id);
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        Mono<Object> likes = contentRepository.getByUsernameAndId(username, id)
+                .map(e-> {
+                    if(e == null){
+                        contentRepository.updateLike(username, id);
+                        contentRepository.inkrementLike(id);
+                    } else {
+                        contentRepository.decrementLikes(username, id);
+                    }
+                    return Mono.empty();
+                }).block();
+//        Likes likes = new Likes();
 //        if(likes == null){
-//            contentRepository.updateLike(username, id).subscribe();
-//            contentRepository.inkrementLike(id).subscribe();
-//        }else {
-//            contentRepository.decrementLikes(username, id).subscribe();
+//            contentRepository.updateLike(username, id);
+//            contentRepository.inkrementLike(id);
+//        } else {
+//            contentRepository.decrementLikes(username, id);
 //        }
-//       return Mono.empty();
+
         return Mono.empty();
     }
 }

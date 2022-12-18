@@ -1,39 +1,36 @@
 package ru.geekbrains.telegram.bot;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
+import lombok.SneakyThrows;
 import org.json.JSONArray;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Portal {
 
 
-    public static String getContent() throws IOException {
-        JSONArray array = new JSONArray();
-        Model memMessage = new Model();
-        String tttt = "";
+    public static String newMem(Long chatId) throws IOException {
+        MessageHandler messageHandler = new MessageHandler();
+        return messageHandler.sendMessageToUserNewMem(getArray(), chatId);
 
+    }
+    @SneakyThrows
+    public static String oldMem(Long chatId){
+        MessageHandler messageHandler = new MessageHandler();
+        return messageHandler.sendMessageToUserOldMem(getArray(), chatId);
+    }
+
+    public static JSONArray getArray() throws IOException {
+        String incomMsg = "";
         URL url = new URL("http://localhost:8080/core-service/api/v1/mem/");
         Scanner scx = new Scanner((InputStream) url.getContent());
         while (scx.hasNext()) {
-            tttt += scx.nextLine();
+            incomMsg += scx.nextLine();
         }
-        System.out.println(tttt);
-//        array = (JSONArray) url.getContent();
-        array.put(tttt);
-        System.out.println(array);
 
-
-        Model qwerty = new CustomJSONParser().parse(tttt);
-
-
-        return "Наши супер мемы \n"+qwerty.getContent()+"\n"+"Из категории "+qwerty.getCategory()+".";
+        return new JSONArray(incomMsg);
     }
 
 

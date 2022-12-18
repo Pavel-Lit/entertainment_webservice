@@ -43,7 +43,7 @@ public interface ContentRepository extends ReactiveCrudRepository<Contents, Long
 
     @Query(value = "delete from likes where username = :name and content_id = :id")
     Mono<Void> decrementLikes(@Param("name") String username, @Param("id") Long id);
-}
+
 
     @Query(value = "DELETE FROM contents WHERE id = $1")
     Mono<Void> deleteContents(Long id);
