@@ -12,6 +12,7 @@ public class ContentConverter {
         contentDto.setId(contents.getId());
         contentDto.setContent(contents.getContent());
         contentDto.setTitle(contents.getTitle());
+        contentDto.setLikes(contents.getLike_count());
         return contentDto;
     }
     public Contents DtoToEntity(ContentDto dto){
@@ -19,6 +20,6 @@ public class ContentConverter {
         contents.setId(dto.getId());
         contents.setContent(dto.getContent());
         contents.setTitle(dto.getTitle());
-        return contents;
+                return contents;
     }
 }

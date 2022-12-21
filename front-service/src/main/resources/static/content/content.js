@@ -1,4 +1,4 @@
-angular.module('portal').controller('contentController', function ($scope, $http) {
+angular.module('portal').controller('contentController', function ($scope, $http, $localStorage) {
 
  const contextPath = 'http://localhost:5555/core/api/v1/mem/';
 
@@ -10,25 +10,16 @@ angular.module('portal').controller('contentController', function ($scope, $http
                 console.log($scope.mems);
             });
     };
-    $scope.fillTableUnmoder = function () {
-        $http.get(contextPath + 'unmoderate/')
-            .then(function (response) {
-                $scope.cont = response.data;
-                console.log($scope.mems);
+
+
+    $scope.decrementLike = function (id){
+        $http.get(contextPath + 'likes/' +id)
+            .then(function (response){
+                $scope.fillTable();
             });
-    };
-
-        $scope.moderate = function (id){
-            $http.get(contextPath + id)
-                .then(function (response){
-                    $scope.fillTableUnmoder();
-
-                });
-        }
+    }
 
         $scope.fillTable();
-        $scope.fillTableUnmoder();
-
 
     // $scope.fillTableM = function () {
     //     $http.get('http://localhost:8080/moder')
@@ -46,12 +37,8 @@ angular.module('portal').controller('contentController', function ($scope, $http
     // }
 
 
-    $scope.decrementLike = function (id){
-        $http.get(contextPath+'likes/' +id)
-            .then(function (response){
-                $scope.fillTable();
-            });
-    }
+
+
 
     // $scope.deleteStudent = function (id) {
     //     $http.delete('http://localhost:8081/interview/api/v1/student/' + id)

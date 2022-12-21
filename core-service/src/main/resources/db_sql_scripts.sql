@@ -1,5 +1,9 @@
-
 SET search_path TO myschema, public;
+
+drop table if exists likes;
+drop table if exists contents;
+drop table if exists categories;
+
 
 create table categories
 (
@@ -9,11 +13,15 @@ create table categories
     title varchar(255)
 );
 
+
+
 create table contents
 (
-    id          bigserial constraint contents_pk  primary key,
+    id          bigserial
+        constraint contents_pk primary key,
     content     varchar(4096),
     moderate    boolean,
+    like_count  INTEGER   DEFAULT 0 CHECK ( like_count >= 0 ),
     category_id bigserial
         constraint contents_categories_id_fk
             references categories
@@ -34,9 +42,14 @@ create table likes
 );
 
 
-insert into categories (title) values ('mem');
-insert into categories (title) values ('anekdot');
-insert into contents (category_id, content, moderate) values (1, 'Лето это 3 зарплаты', true);
-insert into contents (category_id, content, moderate) values (2, 'Шутка про Вовочку', true);
-insert into contents (category_id, content, moderate) values (2, 'Шутка про Дургого', false);
+insert into categories (title)
+values ('mem');
+insert into categories (title)
+values ('anekdot');
+insert into contents (category_id, content, moderate)
+values (1, 'Лето это 3 зарплаты', true);
+insert into contents (category_id, content, moderate)
+values (2, 'Шутка про Вовочку', true);
+insert into contents (category_id, content, moderate)
+values (2, 'Шутка про Дургого', false);
 
