@@ -1,5 +1,6 @@
 package ru.geekbrains.coreservice.repositories;
 
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.r2dbc.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
@@ -15,6 +16,7 @@ public interface ContentRepository extends ReactiveCrudRepository<Contents, Long
             " from contents join categories on category_id = categories.id where" +
             " moderate = true order by contents.id;")
     Flux<Contents> findAllModerateContent();
+
 
     @Query(value = "select contents.id, contents.content, categories.title from contents " +
             "join categories on category_id = categories.id " +

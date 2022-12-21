@@ -17,11 +17,14 @@ import ru.geekbrains.coreservice.repositories.ContentRepository;
 public class ContentService {
 
     private final ContentRepository contentRepository;
-
     private final ContentConverter contentConverter;
+    private final static Long COUNT_MEM_FROM_PAGE = 10L;
 
-    public Flux<ContentDto> getAllModerateContent() {
-        return contentRepository.findAllModerateContent().map(contentConverter::entityToDto);
+    public Flux<ContentDto> getAllModerateContent(Long page) {
+        return contentRepository.findAllModerateContent()
+                .map(contentConverter::entityToDto)
+                .skip((page - 1) * COUNT_MEM_FROM_PAGE)
+                .take(COUNT_MEM_FROM_PAGE);
     }
 
     public Flux<ContentDto> getAllUnModerateContent() {
@@ -54,15 +57,16 @@ public class ContentService {
                         Mono.defer(() -> contentRepository.deleteContents(id)));
 
     }
+
     public Mono<Void> setLike(Long content_id, String username) {
 
 
         return contentRepository.getByUsernameAndIdFromLikes(username, content_id)
                 .switchIfEmpty(
-                                contentRepository.addUserToLikes(username, content_id)
-                                        .and
-                                                (contentRepository.updateCountLikeUp(content_id))
-                                        .cast(Likes.class))
+                        contentRepository.addUserToLikes(username, content_id)
+                                .and
+                                        (contentRepository.updateCountLikeUp(content_id))
+                                .cast(Likes.class))
                 .flatMap(e ->
                         contentRepository.updateCountLikeDown(content_id)
                                 .and

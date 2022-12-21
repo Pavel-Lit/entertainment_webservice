@@ -83,20 +83,11 @@ angular.module('portal').controller('indexController', function ($rootScope, $sc
     };
 
 
-
     $rootScope.isUserLoggedIn = function () {
         if ($localStorage.memPortalUser) {
             return true;
         } else {
             return false;
         }
-    };
-
-    $scope.about = function (){
-        $http.get('http://localhost:5555/auth/info')
-            .then(function (response){
-                console.log(response)
-                alert("Имя пользователя: "+response.data.name + "\nemail: "+ response.data.email)
-            });
     };
 });

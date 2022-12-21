@@ -19,14 +19,19 @@
             <td>{{m.content}}</td>
             <td>{{m.title}}</td>
             <td>
-                <button type="button" class="btn btn-primary btn-sm" ng-show="isUserLoggedIn()" ng-click="decrementLike(m.id)">{{m.likes}}</button>
+                <button type="button" class="btn btn-primary btn-sm" ng-show="isUserLoggedIn()"
+                        ng-click="decrementLike(m.id)">{{m.likes}}
+                </button>
                 <label ng-show="!isUserLoggedIn()">{{m.likes}}</label>
             </td>
         </tr>
         </tbody>
     </table>
-    <p></p>
-    <p></p>
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li class="page-item" ng-repeat="pageIndex in pagesList">
+                <button class="page-link" ng-click="fillTable(pageIndex)">{{pageIndex}}</button>
+            </li>
+        </ul>
+    </nav>
 </div>
-</body>
-</html>
