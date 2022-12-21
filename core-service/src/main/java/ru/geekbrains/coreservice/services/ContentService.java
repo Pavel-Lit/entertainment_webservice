@@ -20,7 +20,6 @@ public class ContentService {
     private final ContentConverter contentConverter;
     private final static Long COUNT_MEM_FROM_PAGE = 10L;
 
-
     public Flux<ContentDto> getAllModerateContent(Long page) {
         return contentRepository.findAllModerateContent()
                 .map(contentConverter::entityToDto)
@@ -61,6 +60,7 @@ public class ContentService {
 
     public Mono<Void> setLike(Long content_id, String username) {
 
+
         return contentRepository.getByUsernameAndIdFromLikes(username, content_id)
                 .switchIfEmpty(
                         contentRepository.addUserToLikes(username, content_id)
@@ -71,5 +71,6 @@ public class ContentService {
                         contentRepository.updateCountLikeDown(content_id)
                                 .and
                                         (contentRepository.deleteUsernameFromLikes(username, content_id)));
+
     }
 }
