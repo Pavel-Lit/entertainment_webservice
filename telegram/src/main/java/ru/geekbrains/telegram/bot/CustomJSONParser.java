@@ -3,15 +3,14 @@ package ru.geekbrains.telegram.bot;
 import org.json.JSONObject;
 
 public class CustomJSONParser {
-    public Model parse(String json){
-        Model model = new Model();
-       String efbviebf = json.substring(1, json.length()-1);
-        JSONObject object = new JSONObject(efbviebf);
-        System.out.println(object);
-        model.setContent(object.getString("content"));
-        model.setCategory(object.getString("title"));
 
+    public  Model parseJSON(JSONObject json){
 
-        return model;
+        return Model.builder()
+                .content(json.getString("content"))
+                .category(json.getString("title"))
+                .build();
     }
+
+
 }

@@ -1,8 +1,9 @@
 package ru.geekbrains.telegram.bot;
 
+import lombok.Builder;
 import org.json.JSONPropertyIgnore;
 
-
+@Builder
 public class Model {
 
     private String content;

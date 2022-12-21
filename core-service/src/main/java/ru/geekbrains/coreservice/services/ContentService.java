@@ -20,8 +20,6 @@ public class ContentService {
 
     private final ContentConverter contentConverter;
 
-//    private final LikesConverter likesConverter;
-
     public Flux<ContentDto> getAllModerateContent() {
         return contentRepository.findAllModerateContent().map(contentConverter::entityToDto);
     }
@@ -58,6 +56,7 @@ public class ContentService {
     }
     public Mono<Void> setLike(Long content_id, String username) {
 
+
         return contentRepository.getByUsernameAndIdFromLikes(username, content_id)
                 .switchIfEmpty(
                                 contentRepository.addUserToLikes(username, content_id)
@@ -68,5 +67,6 @@ public class ContentService {
                         contentRepository.updateCountLikeDown(content_id)
                                 .and
                                         (contentRepository.deleteUsernameFromLikes(username, content_id)));
+
     }
 }
