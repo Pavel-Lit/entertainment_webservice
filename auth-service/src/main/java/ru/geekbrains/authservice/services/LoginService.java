@@ -42,7 +42,7 @@ public class LoginService implements ReactiveUserDetailsService {
                 .cast(User.class)
                 .filter(userDetails -> passwordEncoder.encode(req.getPassword()).equals(userDetails.getPassword()))
                 .map(userDetails -> ResponseEntity.ok(new JwtResponse(jwtUtil.generateToken(userDetails))))
-                .switchIfEmpty(Mono.just(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()));
+                .switchIfEmpty(Mono.error(() -> new UserNotFoundException("USER NOT FOUND")));
 
     }
 

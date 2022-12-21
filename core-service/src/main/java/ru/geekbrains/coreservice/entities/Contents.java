@@ -13,6 +13,7 @@ public class Contents {
     private Long id;
     private String content;
     private String title;
+    private int like_count;
     private boolean moderate;
 
 

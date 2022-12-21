@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 public class Likes {
 
     private Long id;
-    private int content_id;
+    private Long content_id;
     private String username;
 }

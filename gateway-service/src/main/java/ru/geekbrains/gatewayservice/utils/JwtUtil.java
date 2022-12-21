@@ -34,12 +34,6 @@ public class JwtUtil {
         return this.isTokenExpired(token);
     }
 
-    public boolean isAdmin(String token) {
-        String admin = getClaimsFromToken(token)
-                .get("role")
-                .toString();
-        return admin.equals("[ROLE_ADMIN]");
-    }
 }
 
 

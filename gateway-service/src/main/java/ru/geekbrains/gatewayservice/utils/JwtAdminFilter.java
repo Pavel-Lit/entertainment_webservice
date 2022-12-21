@@ -11,19 +11,19 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
-
 @Component
-public class JwtAuthFilter extends AbstractGatewayFilterFactory<JwtAdminFilter.Config> {
+public class JwtAdminFilter extends AbstractGatewayFilterFactory<JwtAdminFilter.Config> {
+
     private final JwtUtil jwtUtil;
 
     @Autowired
-    public JwtAuthFilter(JwtUtil jwtUtil) {
-        super(JwtAdminFilter.Config.class);
+    public JwtAdminFilter(JwtUtil jwtUtil) {
+        super(Config.class);
         this.jwtUtil = jwtUtil;
     }
 
     @Override
-    public GatewayFilter apply(JwtAdminFilter.Config config) {
+    public GatewayFilter apply(Config config) {
         return (exchange, chain) -> {
             ServerHttpRequest request = exchange.getRequest();
 
@@ -33,12 +33,14 @@ public class JwtAuthFilter extends AbstractGatewayFilterFactory<JwtAdminFilter.C
                 if (jwtUtil.isInvalid(token)) {
                     return this.onError(exchange, "Authorization header is invalid", HttpStatus.BAD_REQUEST);
                 }
-
-
-              populateRequestWithHeaders(exchange, token);
-
+                if (!isAdmin(token)) {
+                    return this.onError(exchange, "ACCESS only for ADMIN", HttpStatus.FORBIDDEN);
+                }
+                populateRequestWithHeaders(exchange, token);
+                return   chain.filter(exchange);
             }
-            return chain.filter(exchange);
+
+            return this.onError(exchange, "ACCESS only for ADMIN", HttpStatus.FORBIDDEN);
         };
     }
 
@@ -68,8 +70,14 @@ public class JwtAuthFilter extends AbstractGatewayFilterFactory<JwtAdminFilter.C
     private void populateRequestWithHeaders(ServerWebExchange exchange, String token) {
         Claims claims = jwtUtil.getClaimsFromToken(token);
         exchange.getRequest().mutate()
-                .header("username", claims.getSubject())
+                .header("role", claims.getSubject())
                 .build();
     }
 
+    public boolean isAdmin(String token) {
+        String admin = jwtUtil.getClaimsFromToken(token)
+                .get("role")
+                .toString();
+        return admin.equals("[ROLE_ADMIN]");
+    }
 }
