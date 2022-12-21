@@ -1,15 +1,48 @@
 angular.module('portal').controller('contentController', function ($scope, $http, $localStorage, $rootScope) {
 
- const contextPath = 'http://localhost:5555/core/api/v1/mem/';
+    const contextPath = 'http://localhost:5555/core/api/v1/mem/';
 
-
-    $scope.fillTable = function () {
-        $http.get(contextPath)
-            .then(function (response) {
-                $scope.mems = response.data;
-                console.log($scope.mems);
-            });
+    $scope.fillTable = function (page) {
+        $http({
+            url: contextPath,
+            method: 'GET',
+            params: {
+                page: page,
+            }
+        }).then(function (response) {
+            $scope.mems = response.data;
+            $scope.generatePagesList();
+            console.log(page);
+        });
     };
+
+    $scope.generatePagesList = function () {
+        out = [];
+        for (let i = 0; i < 4; i++) {
+            out.push(i + 1);
+        }
+        $scope.pagesList = out;
+    };
+
+    // $scope.buttonIncrement = function () {
+    //     out = [];
+    //     let i = 0;
+    //     out.push(i++);
+    //     if (i > 0) {
+    //         i++;
+    //         out.push(i)
+    //     }
+    //     $scope.temp = out;
+    //     $scope.fillTable($scope.temp);
+    //
+    // }
+    // $scope.fillTable = function () {
+    //     $http.get(contextPath)
+    //         .then(function (response) {
+    //             $scope.mems = response.data;
+    //             console.log($scope.mems);
+    //         });
+    // };
 
     $rootScope.isUserLoggedIn = function () {
         if ($localStorage.memPortalUser) {
@@ -20,14 +53,14 @@ angular.module('portal').controller('contentController', function ($scope, $http
     };
 
 
-    $scope.decrementLike = function (id){
-        $http.get(contextPath + 'likes/' +id)
-            .then(function (response){
+    $scope.decrementLike = function (id) {
+        $http.get(contextPath + 'likes/' + id)
+            .then(function (response) {
                 $scope.fillTable();
             });
     }
 
-        $scope.fillTable();
+    $scope.fillTable();
 
     // $scope.fillTableM = function () {
     //     $http.get('http://localhost:8080/moder')
@@ -43,9 +76,6 @@ angular.module('portal').controller('contentController', function ($scope, $http
     //             $scope.fillTable();
     //         });
     // }
-
-
-
 
 
     // $scope.deleteStudent = function (id) {

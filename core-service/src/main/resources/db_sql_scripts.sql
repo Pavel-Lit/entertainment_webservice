@@ -41,15 +41,11 @@ create table likes
     username   varchar(255)
 );
 
+insert into categories (title)values ('mem');
+insert into categories (title)values ('anekdot');
 
-insert into categories (title)
-values ('mem');
-insert into categories (title)
-values ('anekdot');
-insert into contents (category_id, content, moderate)
-values (1, 'Лето это 3 зарплаты', true);
-insert into contents (category_id, content, moderate)
-values (2, 'Шутка про Вовочку', true);
-insert into contents (category_id, content, moderate)
-values (2, 'Шутка про Дургого', false);
+insert into contents (category_id, content, moderate)values (1, 'Лето это 3 зарплаты', true);
+insert into contents (category_id, content, moderate)values (2, 'Шутка про Вовочку', true);
+insert into contents (category_id, content, moderate)values (2, 'Шутка про Дургого', false);
+
 

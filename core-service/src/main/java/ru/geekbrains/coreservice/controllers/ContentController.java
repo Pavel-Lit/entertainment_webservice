@@ -5,10 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import ru.geekbrains.api.Dto.ContentDto;
-import ru.geekbrains.coreservice.entities.Likes;
 import ru.geekbrains.coreservice.services.ContentService;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/mem")
@@ -17,8 +14,8 @@ public class ContentController {
     private final ContentService contentService;
 
     @GetMapping("/")
-    public Flux<ContentDto> getAllModerateContent() {
-        return contentService.getAllModerateContent();
+    public Flux<ContentDto> getAllModerateContent(@RequestParam(name = "page", defaultValue = "1") Long page) {
+        return contentService.getAllModerateContent(page);
     }
 
     @GetMapping("/unmoderate")
