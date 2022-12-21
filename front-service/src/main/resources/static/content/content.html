@@ -19,7 +19,8 @@
             <td>{{m.content}}</td>
             <td>{{m.title}}</td>
             <td>
-                <button type="button" class="btn btn-primary btn-sm"  ng-click="decrementLike(m.id)">{{m.likes}}</button>
+                <button type="button" class="btn btn-primary btn-sm" ng-show="isUserLoggedIn()" ng-click="decrementLike(m.id)">{{m.likes}}</button>
+                <label ng-show="!isUserLoggedIn()">{{m.likes}}</label>
             </td>
         </tr>
         </tbody>

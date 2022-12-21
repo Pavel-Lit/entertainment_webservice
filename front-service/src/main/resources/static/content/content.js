@@ -1,4 +1,4 @@
-angular.module('portal').controller('contentController', function ($scope, $http, $localStorage) {
+angular.module('portal').controller('contentController', function ($scope, $http, $localStorage, $rootScope) {
 
  const contextPath = 'http://localhost:5555/core/api/v1/mem/';
 
@@ -9,6 +9,14 @@ angular.module('portal').controller('contentController', function ($scope, $http
                 $scope.mems = response.data;
                 console.log($scope.mems);
             });
+    };
+
+    $rootScope.isUserLoggedIn = function () {
+        if ($localStorage.memPortalUser) {
+            return true;
+        } else {
+            return false;
+        }
     };
 
 
