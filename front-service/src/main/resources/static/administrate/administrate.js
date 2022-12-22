@@ -14,7 +14,6 @@ angular.module('portal').controller('administrateController', function ($scope, 
         }).then(function (response) {
             $scope.users = response.data;
             $scope.counts = Object.keys(response.data).length;
-            console.log($scope.counts)
         });
     };
 

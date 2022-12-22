@@ -12,7 +12,6 @@ angular.module('portal').controller('contentController', function ($scope, $http
         }).then(function (response) {
             $scope.mems = response.data;
             $scope.counts = Object.keys(response.data).length;
-            console.log($scope.counts);
         });
     };
 
