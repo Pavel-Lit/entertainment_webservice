@@ -11,38 +11,30 @@ angular.module('portal').controller('contentController', function ($scope, $http
             }
         }).then(function (response) {
             $scope.mems = response.data;
-            $scope.generatePagesList();
-            console.log(page);
+            $scope.counts = Object.keys(response.data).length;
+            console.log($scope.counts);
         });
     };
 
-    $scope.generatePagesList = function () {
-        out = [];
-        for (let i = 0; i < 4; i++) {
-            out.push(i + 1);
-        }
-        $scope.pagesList = out;
-    };
 
-    // $scope.buttonIncrement = function () {
-    //     out = [];
-    //     let i = 0;
-    //     out.push(i++);
-    //     if (i > 0) {
-    //         i++;
-    //         out.push(i)
-    //     }
-    //     $scope.temp = out;
-    //     $scope.fillTable($scope.temp);
-    //
-    // }
-    // $scope.fillTable = function () {
-    //     $http.get(contextPath)
-    //         .then(function (response) {
-    //             $scope.mems = response.data;
-    //             console.log($scope.mems);
-    //         });
-    // };
+    const $button_inc = document.querySelector('.increment-btn');
+    const $button_dec = document.querySelector('.decrement-btn');
+    const $counter = document.querySelector('.counter');
+
+    $button_inc.addEventListener('click', function () {
+
+        if ($scope.counts > 1){
+            $counter.value = parseInt($counter.value) + 1
+        }
+        $scope.fillTable($counter.value);
+    }, false);
+
+    $button_dec.addEventListener('click', function () {
+        if ($counter.value > 1){
+            $counter.value = parseInt($counter.value) - 1;
+        } else $counter.value = 1
+        $scope.fillTable($counter.value);
+    }, false);
 
     $rootScope.isUserLoggedIn = function () {
         if ($localStorage.memPortalUser) {
@@ -52,55 +44,12 @@ angular.module('portal').controller('contentController', function ($scope, $http
         }
     };
 
-
-    $scope.decrementLike = function (id) {
+    $scope.counterLike = function (id) {
         $http.get(contextPath + 'likes/' + id)
             .then(function (response) {
-                $scope.fillTable();
+                $scope.fillTable($counter.value);
             });
     }
 
     $scope.fillTable();
-
-    // $scope.fillTableM = function () {
-    //     $http.get('http://localhost:8080/moder')
-    //         .then(function (response) {
-    //             $scope.mems = response.data;
-    //             console.log($scope.mems);
-    //         });
-    // };
-
-    // $scope.moder = function (id){
-    //     $http.put('http://localhost:8080/moder/' +id)
-    //         .then(function (response){
-    //             $scope.fillTable();
-    //         });
-    // }
-
-
-    // $scope.deleteStudent = function (id) {
-    //     $http.delete('http://localhost:8081/interview/api/v1/student/' + id)
-    //         .then(function (response) {
-    //             $scope.fillTable();
-    //         });
-    // }
-    //
-    // $scope.createNewStudent = function () {
-    //     // console.log($scope.newProduct);
-    //     $http.post('http://localhost:8081/interview/api/v1/student', $scope.newStudent)
-    //         .then(function (response) {
-    //             $scope.newProduct = null;
-    //             $scope.fillTable();
-    //         });
-    // }
-    //
-    // $scope.updateSomeStudent = function (){
-    //     $http.put('http://localhost:8081/interview/api/v1/student/update', $scope.updateStudent)
-    //         .then(function (response) {
-    //             $scope.updateStudent = null;
-    //             $scope.fillTable();
-    //         })
-    // }
-
-
 });

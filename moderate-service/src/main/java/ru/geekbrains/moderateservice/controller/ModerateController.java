@@ -17,8 +17,8 @@ public class ModerateController {
 
 
     @GetMapping()
-    public Flux<ContentDto> getContent(){
-        return moderateService.AllUnModerateContent();
+    public Flux<ContentDto> getContent(@RequestParam(name = "page", defaultValue = "1") Long page){
+        return moderateService.AllUnModerateContent(page);
     }
 
     @GetMapping("/{id}")
