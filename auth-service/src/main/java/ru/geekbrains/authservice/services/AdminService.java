@@ -21,10 +21,12 @@ import ru.geekbrains.authservice.repositories.UserRepository;
 public class AdminService {
     private final AdminRepository adminRepository;
     private final UserRepository userRepository;
-    private final UserConverter converter;
+    private final static Long COUNT_MEM_FROM_PAGE = 10L;
 
-    public Flux<User> listUsers() {
-        return adminRepository.findAll();
+    public Flux<User> listUsers(Long page) {
+        return adminRepository.findAll()
+                .skip((page - 1) * COUNT_MEM_FROM_PAGE)
+                .take(COUNT_MEM_FROM_PAGE);
     }
 
     public Mono<Void> deleteById(Long id) {

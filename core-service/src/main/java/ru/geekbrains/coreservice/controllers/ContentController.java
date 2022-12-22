@@ -35,7 +35,7 @@ public class ContentController {
     }
 
     @PostMapping("/addmem")
-    public Mono<Void> addContents(@RequestBody ContentDto contentDto) {
+    public Mono<Void> addContents(@RequestBody ContentDto contentDto, @RequestHeader String username) {
         return contentService.addContent(contentDto);
     }
 
