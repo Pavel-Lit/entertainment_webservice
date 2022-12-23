@@ -12,9 +12,12 @@ import ru.geekbrains.moderateservice.integration.CoreServiceIntegration;
 @RequiredArgsConstructor
 public class ModerateService {
     private final CoreServiceIntegration coreServiceIntegration;
+    private final static Long COUNT_MEM_FROM_PAGE = 10L;
 
-    public Flux<ContentDto> AllUnModerateContent() {
-        return coreServiceIntegration.getAllUnModerateContent();
+    public Flux<ContentDto> AllUnModerateContent(Long page) {
+        return coreServiceIntegration.getAllUnModerateContent()
+                .skip((page - 1) * COUNT_MEM_FROM_PAGE)
+                .take(COUNT_MEM_FROM_PAGE);
     }
 
     public void fromModerateContent(Long id) {

@@ -4,13 +4,19 @@ angular.module('portal').controller('administrateController', function ($scope, 
     const contextPath = 'http://localhost:5555/auth/administrate';
 
 
-    $scope.fillTable = function () {
-        $http.get(contextPath)
-            .then(function (response) {
-                $scope.users = response.data;
-                console.log($scope.users);
-            });
+    $scope.fillTable = function (page) {
+        $http({
+            url: contextPath,
+            method: 'GET',
+            params: {
+                page: page,
+            }
+        }).then(function (response) {
+            $scope.users = response.data;
+            $scope.counts = Object.keys(response.data).length;
+        });
     };
+
 
     $scope.deleteUser = function (id) {
         $http.delete(contextPath + "/" + id)
@@ -32,6 +38,26 @@ angular.module('portal').controller('administrateController', function ($scope, 
                 $scope.fillTable();
             })
     }
+
+    const $button_inc = document.querySelector('.increment-btn');
+    const $button_dec = document.querySelector('.decrement-btn');
+    const $counter = document.querySelector('.counter');
+
+    $button_inc.addEventListener('click', function () {
+
+        if ($scope.counts > 1){
+            $counter.value = parseInt($counter.value) + 1
+        }
+        $scope.fillTable($counter.value);
+    }, false);
+
+    $button_dec.addEventListener('click', function () {
+        if ($counter.value > 1){
+            $counter.value = parseInt($counter.value) - 1;
+        } else $counter.value = 1
+        $scope.fillTable($counter.value);
+    }, false);
+
 
     $scope.fillTable();
 

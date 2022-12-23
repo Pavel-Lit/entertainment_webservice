@@ -17,11 +17,8 @@ public class AdminController {
     private final AdminService adminService;
 
     @GetMapping
-    public Flux<User> list(
-            @RequestParam(defaultValue = "0") Long start,
-            @RequestParam(defaultValue = "10") Long count
-    ) {
-        return adminService.listUsers().skip(start).take(count);
+    public Flux<User> list(@RequestParam(defaultValue = "1") Long page) {
+        return adminService.listUsers(page);
     }
 
     @PostMapping("/modifyRoles")
