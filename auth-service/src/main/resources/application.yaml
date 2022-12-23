@@ -24,3 +24,5 @@ springbootwebfluxjjwt:
       secret: mysecret
       iteration: 33
       keylength: 256
+
+
