@@ -1,9 +1,14 @@
 package ru.geekbrains.api.Dto;
 
-public class UserDto {
+import io.swagger.v3.oas.annotations.media.Schema;
 
+@Schema(description = "Модель пользователя")
+public class UserDto {
+    @Schema(description = "ID пользователя", required = true, example = "1")
     private Long id;
+    @Schema(description = "Имя пользователя", required = true, maxLength = 64, example = "David")
     private String username;
+    @Schema(description = "Роль пользователя", required = true, maxLength = 64, example = "ROLE_USER")
     private String role;
 
     public UserDto() {

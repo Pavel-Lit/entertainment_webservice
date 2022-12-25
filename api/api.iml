@@ -16,5 +16,35 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Maven: io.projectreactor:reactor-core:3.4.24" level="project" />
     <orderEntry type="library" name="Maven: org.reactivestreams:reactive-streams:1.0.4" level="project" />
+    <orderEntry type="library" name="Maven: org.springdoc:springdoc-openapi-webflux-ui:1.6.4" level="project" />
+    <orderEntry type="library" name="Maven: org.springdoc:springdoc-openapi-webflux-core:1.6.4" level="project" />
+    <orderEntry type="library" name="Maven: org.springdoc:springdoc-openapi-common:1.6.4" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-autoconfigure:2.6.2" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot:2.6.2" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-context:5.3.14" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-aop:5.3.14" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-expression:5.3.14" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-web:5.3.14" level="project" />
+    <orderEntry type="library" name="Maven: io.swagger.core.v3:swagger-core:2.1.12" level="project" />
+    <orderEntry type="library" name="Maven: jakarta.xml.bind:jakarta.xml.bind-api:2.3.2" level="project" />
+    <orderEntry type="library" name="Maven: jakarta.activation:jakarta.activation-api:1.2.1" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.7" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.12.1" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.12.1" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.12.1" level="project" />
+    <orderEntry type="library" name="Maven: org.yaml:snakeyaml:1.27" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.12.1" level="project" />
+    <orderEntry type="library" name="Maven: io.swagger.core.v3:swagger-annotations:2.1.12" level="project" />
+    <orderEntry type="library" name="Maven: io.swagger.core.v3:swagger-models:2.1.12" level="project" />
+    <orderEntry type="library" name="Maven: jakarta.validation:jakarta.validation-api:2.0.2" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-webflux:5.3.14" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-beans:5.3.14" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-core:5.3.14" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-jcl:5.3.14" level="project" />
+    <orderEntry type="library" name="Maven: org.webjars:swagger-ui:4.1.3" level="project" />
+    <orderEntry type="library" name="Maven: org.webjars:webjars-locator-core:0.45" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.29" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.10.0" level="project" />
+    <orderEntry type="library" name="Maven: io.github.classgraph:classgraph:4.8.138" level="project" />
   </component>
 </module>

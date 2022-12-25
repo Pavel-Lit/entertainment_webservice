@@ -14,6 +14,11 @@
             <version>3.4.24</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-webflux-ui</artifactId>
+            <version>1.6.4</version>
+        </dependency>
     </dependencies>
     <modelVersion>4.0.0</modelVersion>
 
