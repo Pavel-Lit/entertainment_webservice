@@ -1,8 +1,14 @@
 package ru.geekbrains.api.Dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
+@Schema(description = "Модель для регистрации пользователей")
 public class RegisterUserDto {
+    @Schema(description = "Имя пользователя", required = true, example = "Bob", maxLength = 64)
     private String username;
+    @Schema(description = "Пароль", required = true, example = "qwerty", maxLength = 64)
     private String password;
+    @Schema(description = "Подтверждение пароля", required = true, example = "qwerty", maxLength = 64)
     private String confirmPassword;
 
     public RegisterUserDto(String username, String password, String confirmPassword, String email) {
