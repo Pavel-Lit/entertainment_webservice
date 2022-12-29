@@ -6,8 +6,13 @@ spring:
   jpa:
     show-sql: true
   webflux:
-    port: 8080
     base-path: /core-service
-
+  flyway:
+    url: jdbc:postgresql://localhost:5433/postgres?currentSchema=public
+    user: postgres
+    password: postgres
+    enabled: true
 upload:
   path: /dem
+server:
+  port: 8080
