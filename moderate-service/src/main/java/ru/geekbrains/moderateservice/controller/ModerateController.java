@@ -8,9 +8,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 import ru.geekbrains.api.Dto.ContentDto;
-import ru.geekbrains.coreservice.services.ContentService;
 import ru.geekbrains.moderateservice.service.ModerateService;
 
 

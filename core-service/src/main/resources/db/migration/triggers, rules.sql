@@ -19,6 +19,9 @@ from likes
 where username = 'qwe'
   and content_id = 2;
 
+Сохранено для будущего!
+
+
 CREATE RULE rule_decrement_likes_upd AS ON DELETE TO likes
     DO ALSO
     (UPDATE contents
