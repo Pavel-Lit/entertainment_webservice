@@ -1,24 +1,28 @@
-package ru.geekbrains.telegram.bot;
+package ru.geekbrains.telegram.handler.impl;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import ru.geekbrains.telegram.dto.CustomJSONParser;
+import ru.geekbrains.telegram.dto.Model;
+import ru.geekbrains.telegram.handler.HandlerMessage;
 
 import java.util.HashMap;
 import java.util.Map;
 
 
-public class MessageHandler {
+public class MessageHandler implements HandlerMessage {
 
 
-    private CustomJSONParser customJSONParser;
+    private final CustomJSONParser customJSONParser;
     private Model model;
-    private static Map<Long, Integer> userCounter = new HashMap<>();
+    private static final Map<Long, Integer> userCounter = new HashMap<>();
 
     public MessageHandler() {
         this.customJSONParser = new CustomJSONParser();
         this.model = new Model();
     }
 
+    @Override
     public String sendMessageToUserNewMem(JSONArray array, Long chatId) {
         if (!userCounter.containsKey(chatId)) {
             userCounter.put(chatId, array.length() - 1);
@@ -28,13 +32,14 @@ public class MessageHandler {
         if (userCounter.get(chatId) >= 0) {
             model = customJSONParser.parseJSON(getMessageFromURI(array, userCounter.get(chatId)));
             userCounter.computeIfPresent(chatId, (k, v) -> (v >= 0 ? --v : v));
-            return "Свежии шутки с мем портала \n" + model.getContent() + "\nиз категории " + model.getCategory() + ".";
+            return " *** Шутка с мем портала из категории " + model.getCategory() + " *** \n" + model.getContent() + ".";
         } else {
-            return "Шутки кончились. Листай назад сторону";
+            return "Шутки кончились. Листай в другую сторону";
 
         }
     }
 
+    @Override
     public String sendMessageToUserOldMem(JSONArray array, Long chatId) {
         if (!userCounter.containsKey(chatId)) {
             userCounter.put(chatId, 0);
@@ -44,9 +49,9 @@ public class MessageHandler {
         if (userCounter.get(chatId) <= array.length() - 1) {
             model = customJSONParser.parseJSON(getMessageFromURI(array, userCounter.get(chatId)));
             userCounter.computeIfPresent(chatId, (k, v) -> (v <= array.length() - 1 ? ++v : v));
-            return "Старые шутки с мем портала \n" + model.getContent() + "\nиз категории " + model.getCategory() + ".";
+            return " *** Шутка с мем портала из категории " + model.getCategory() + " *** \n" + model.getContent() + ".";
         } else {
-            return "Шутки кончились. Листай вперед сторону";
+            return "Шутки кончились. Листай в другую сторону";
         }
 
     }

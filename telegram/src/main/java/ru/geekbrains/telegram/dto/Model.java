@@ -1,4 +1,4 @@
-package ru.geekbrains.telegram.bot;
+package ru.geekbrains.telegram.dto;
 
 import lombok.Builder;
 import org.json.JSONPropertyIgnore;
