@@ -1,7 +1,8 @@
-package ru.geekbrains.telegram.bot;
+package ru.geekbrains.telegram.repository;
 
-import lombok.SneakyThrows;
 import org.json.JSONArray;
+import ru.geekbrains.telegram.handler.HandlerMessage;
+import ru.geekbrains.telegram.handler.impl.MessageHandler;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,25 +13,27 @@ public class Portal {
 
 
     public static String newMem(Long chatId) throws IOException {
-        MessageHandler messageHandler = new MessageHandler();
+        HandlerMessage messageHandler = new MessageHandler();
         return messageHandler.sendMessageToUserNewMem(getArray(), chatId);
 
     }
-    @SneakyThrows
-    public static String oldMem(Long chatId){
-        MessageHandler messageHandler = new MessageHandler();
+
+    public static String oldMem(Long chatId) throws IOException {
+        HandlerMessage messageHandler = new MessageHandler();
         return messageHandler.sendMessageToUserOldMem(getArray(), chatId);
     }
 
-    public static JSONArray getArray() throws IOException {
-        String incomMsg = "";
+
+
+    private static JSONArray getArray() throws IOException {
+        StringBuilder incomeMsg = new StringBuilder();
         URL url = new URL("http://localhost:8080/core-service/api/v1/mem/");
         Scanner scx = new Scanner((InputStream) url.getContent());
         while (scx.hasNext()) {
-            incomMsg += scx.nextLine();
+            incomeMsg.append(scx.nextLine());
         }
 
-        return new JSONArray(incomMsg);
+        return new JSONArray(incomeMsg.toString());
     }
 
 
